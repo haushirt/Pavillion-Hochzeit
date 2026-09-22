@@ -2,435 +2,423 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vorabend Hochzeit 11.09.2026 – Pavillon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lagos zu Fuß</title>
+<meta name="description" content="Heutiger 2,5-Std-Rundgang ab Dot Coffee: Sklavenmarkt, Statue und Street-Art-Altstadt in Lagos.">
+<meta name="theme-color" content="#f7f1e4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#10171d" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Lagos">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231d6f8c'/%3E%3Cpath d='M50 20c-11 0-20 9-20 20 0 15 20 40 20 40s20-25 20-40c0-11-9-20-20-20zm0 27a7 7 0 110-14 7 7 0 010 14z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a18;}
-.app{max-width:900px;margin:0 auto;padding:20px 16px 80px;}
-header h1{font-size:20px;font-weight:700;}
-header p{font-size:12px;color:#888;margin-top:3px;}
-.tab-bar{display:flex;background:#fff;border:1px solid #e8e6e1;border-radius:12px;padding:4px;gap:3px;margin:18px 0 20px;flex-wrap:wrap;}
-.tab{flex:1;min-width:84px;padding:9px 4px;font-size:11px;cursor:pointer;border:none;background:transparent;color:#888;border-radius:9px;font-family:inherit;font-weight:500;}
-.tab.active{background:#1a1a18;color:#fff;}
-.card{background:#fff;border:1px solid #e8e6e1;border-radius:14px;padding:16px;margin-bottom:12px;}
-.card h3{font-size:14px;font-weight:600;margin-bottom:10px;}
-.sec{font-size:16px;font-weight:600;margin:22px 0 10px;}
-.sec:first-child{margin-top:0;}
-.label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;}
-table{width:100%;border-collapse:collapse;font-size:12px;}
-th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#888;font-weight:600;padding:6px 8px;border-bottom:1px solid #e8e6e1;}
-td{padding:7px 8px;border-bottom:1px solid #f0efe8;vertical-align:top;}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
-tr.tot td{font-weight:700;border-top:2px solid #1a1a18;border-bottom:none;background:#faf9f6;}
-.t{font-family:monospace;font-weight:700;white-space:nowrap;}
-.who{display:inline-block;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:600;white-space:nowrap;}
-.w-bar{background:#ede9fe;color:#5b21b6;}
-.w-sv{background:#fef9ee;color:#92400e;}
-.w-all{background:#eff6ff;color:#1e40af;}
-.w-ku{background:#f0fdf4;color:#166534;}
-.alert{border-radius:12px;padding:12px 14px;font-size:12px;line-height:1.55;margin-bottom:12px;display:flex;gap:9px;}
-.a-red{background:#fef2f2;border:1px solid #fca5a5;color:#7f1d1d;}
-.a-amb{background:#fffbeb;border:1px solid #fcd34d;color:#78350f;}
-.a-blu{background:#eff6ff;border:1px solid #93c5fd;color:#1e3a8a;}
-.a-grn{background:#f0fdf4;border:1px solid #86efac;color:#14532d;}
-.chk{display:flex;align-items:flex-start;gap:9px;padding:7px 2px;border-bottom:1px solid #f0efe8;font-size:12px;}
-.chk:last-child{border-bottom:none;}
-.chk input{margin-top:2px;flex-shrink:0;}
-.chk label{cursor:pointer;flex:1;}
-.chk .note{color:#888;font-size:11px;display:block;margin-top:1px;}
-.chk input:checked + label{color:#aaa;text-decoration:line-through;}
-input[type=number]{border:1px solid #e8e6e1;border-radius:7px;padding:6px 8px;font-size:12px;font-family:inherit;outline:none;width:100%;font-variant-numeric:tabular-nums;}
-input:focus{border-color:#1a1a18;}
-input.mini{width:74px;text-align:right;padding:4px 6px;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-.kpi{background:#faf9f6;border:1px solid #e8e6e1;border-radius:12px;padding:12px;text-align:center;}
-.kpi .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;}
-.kpi .l{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
-.bad{color:#dc2626;font-weight:700;}
-.ok{color:#16a34a;font-weight:700;}
-.btn{background:#1a1a18;color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;}
-.tl{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid #f0efe8;font-size:12px;align-items:flex-start;}
-.tl:last-child{border-bottom:none;}
-.tl .tm{width:52px;flex-shrink:0;}
-.tl .bd{flex:1;}
-.tl .bd b{display:block;}
-.tl .bd span{color:#777;font-size:11px;}
-.hi{background:#fffbeb;margin:0 -8px;padding:9px 8px;border-radius:8px;}
-ul.pl{margin:6px 0 0 16px;font-size:12px;line-height:1.6;color:#444;}
-ul.pl li{margin-bottom:4px;}
-@media print{.tab-bar,.btn{display:none;}.pane{display:block!important;}body{background:#fff;}.card{break-inside:avoid;}}
+  :root{
+    --bg:#f7f1e4;
+    --surface:#ffffff;
+    --surface-2:#efe6d2;
+    --ink:#20303b;
+    --muted:#5c6b73;
+    --accent:#1d6f8c;
+    --accent-ink:#ffffff;
+    --accent-2:#c1592d;
+    --highlight:#c78a1a;
+    --today:#3d7d3f;
+    --line:#e2d7bd;
+    --shadow: 0 1px 2px rgba(32,48,59,.06), 0 6px 16px rgba(32,48,59,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10171d; --surface:#19232b; --surface-2:#212d36; --ink:#ece4d3; --muted:#9db0b8;
+      --accent:#5fb8d9; --accent-ink:#0b1418; --accent-2:#e2895d; --highlight:#e8b84b; --today:#7fc982;
+      --line:#2b3941; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10171d; --surface:#19232b; --surface-2:#212d36; --ink:#ece4d3; --muted:#9db0b8;
+    --accent:#5fb8d9; --accent-ink:#0b1418; --accent-2:#e2895d; --highlight:#e8b84b; --today:#7fc982;
+    --line:#2b3941; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 20px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    padding-inline:16px; padding-block:calc(14px + env(safe-area-inset-top,0px)) calc(40px + env(safe-area-inset-bottom,0px));
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,.display{font-family:'Fraunces',Georgia,serif; text-wrap:balance}
+  .wrap{max-width:640px;margin:0 auto}
+  header.top{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:5;
+    background:var(--bg); padding-block:6px 14px; margin-bottom:6px; border-bottom:1px solid var(--line);
+  }
+  .eyebrow{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent-2);font-weight:700}
+  h1{font-size:28px;line-height:1.08;margin:.2em 0 .15em;color:var(--ink);font-weight:600}
+  .meta{color:var(--muted);font-size:13.5px;margin:0 0 12px}
+  .meta b{color:var(--ink)}
+  .routebar{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:6px;font-family:'Inter';font-weight:600;font-size:13px;
+    padding:9px 13px;border-radius:9px;text-decoration:none;border:1px solid transparent;white-space:nowrap;
+  }
+  .btn-primary{background:var(--accent);color:var(--accent-ink)}
+  .btn svg{width:14px;height:14px;flex:none}
+  .progress{margin-top:12px;height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+  .progress > i{display:block;height:100%;background:var(--accent);width:0%;transition:width .3s ease}
+  .progress-label{font-size:11.5px;color:var(--muted);margin-top:5px}
+  .intro-note{
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    padding:12px 14px;margin:16px 0 22px;font-size:13.5px;color:var(--muted);box-shadow:var(--shadow);
+  }
+  .intro-note b{color:var(--ink)}
+  .stops{display:flex;flex-direction:column;gap:14px}
+  .stop{
+    background:var(--surface);border-radius:16px;box-shadow:var(--shadow);border:1px solid var(--line);
+    padding:16px 16px 14px;position:relative;display:flex;gap:12px;
+  }
+  .stop.done{opacity:.55}
+  .stop.highlight{border-color:color-mix(in srgb, var(--highlight) 55%, var(--line))}
+  .stop.today{border-color:color-mix(in srgb, var(--today) 55%, var(--line))}
+  .num{
+    flex:none;width:34px;height:34px;border-radius:50%;background:var(--surface-2);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;font-family:'Fraunces';font-weight:600;font-size:15px;
+    border:1px solid var(--line);transition:background .2s ease,color .2s ease;
+  }
+  .stop.done .num{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+  .stop.done .num::after{content:'✓';font-family:'Inter';font-size:15px}
+  .stop.done .num span{display:none}
+  .body{flex:1;min-width:0}
+  .stop h2{font-size:17px;line-height:1.25;margin:2px 0 4px;font-weight:600}
+  .stop .when{
+    font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;margin-bottom:8px;
+    font-variant-numeric:tabular-nums;
+  }
+  .stop .when b{color:var(--ink);font-weight:600}
+  .stop p{font-size:14px;line-height:1.52;margin:0 0 9px;color:var(--ink)}
+  .tip{
+    font-size:12.5px;line-height:1.5;color:var(--muted);background:var(--surface-2);
+    border-radius:9px;padding:8px 10px;margin:0 0 10px;
+  }
+  .tip b{color:var(--ink)}
+  .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+  .tag{
+    font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+    padding:3px 7px;border-radius:6px;background:var(--surface-2);color:var(--muted);
+  }
+  .tag.hl{background:color-mix(in srgb, var(--highlight) 20%, transparent);color:var(--highlight)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .link{
+    font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:none;
+    display:inline-flex;align-items:center;gap:4px;
+  }
+  .link svg{width:12px;height:12px}
+  .toggle{
+    font-family:'Inter';font-size:12.5px;font-weight:600;cursor:pointer;
+    background:transparent;border:1px solid var(--line);color:var(--muted);
+    padding:6px 11px;border-radius:8px;margin-left:auto;
+  }
+  .stop.done .toggle{border-color:var(--accent);color:var(--accent)}
+  .walk{
+    display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);
+    padding:2px 0 2px 17px;position:relative;
+  }
+  .walk::before{
+    content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;
+    background:repeating-linear-gradient(to bottom,var(--line) 0 4px,transparent 4px 8px);
+  }
+  .walk span{padding-left:14px}
+  footer{
+    margin-top:28px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--muted);line-height:1.6;
+  }
+  footer b{color:var(--ink)}
+  .reset{
+    font-family:'Inter';font-size:12px;font-weight:600;cursor:pointer;margin-top:12px;
+    background:transparent;border:1px solid var(--line);color:var(--muted);padding:7px 12px;border-radius:8px;
+  }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important}}
 </style>
 </head>
 <body>
-<div class="app">
-<header>
-  <h1>🥂 Vorabend Hochzeit – Fr. 11.09.2026</h1>
-  <p>Pavillon · 120–140 Gäste · 18:00–24:00 · All inclusive · 5 Personen im Einsatz</p>
-</header>
-<div class="tab-bar" id="tabs"></div>
+<div class="wrap">
 
-<!-- ABLAUF -->
-<div class="pane" id="p-ablauf">
-  <div class="alert a-red"><span>🌧️</span><div><b>Freitag: max. 10 °C, nachts 4,6 °C, 65 % Regen.</b> Im Pavillon abends realistisch 5–8 °C. Heizung, Felle und Decken sind hier keine Deko, sondern Betriebsvoraussetzung. Wenn der Pavillon nicht schließbar oder heizbar ist, muss das <b>heute</b> geklärt werden.</div></div>
-  <div class="alert a-amb"><span>🚚</span><div><b>Externe Location.</b> Alles muss transportiert werden und ist danach nicht mehr nachholbar. Zwei Fahrten einplanen, nicht eine. Was um 17:00 fehlt, fehlt den ganzen Abend.</div></div>
-
-  <p class="sec">Mittwoch/Donnerstag – Vorbereitung</p>
-  <div class="card">
-    <div class="tl"><div class="tm t">Mi</div><div class="bd"><b>Pavillon-Infrastruktur klären</b> <span>Strom (Ampere!), fließend Wasser, Spülbecken, Toiletten, Heizung, Licht, Zugang/Anfahrt zum Abladen. Davon hängt der halbe Plan ab.</span></div><span class="who w-all">alle</span></div>
-    <div class="tl"><div class="tm t">Mi</div><div class="bd"><b>Gläser zählen</b> <span>Es gibt nur den einen 200-ml-Typ. Ist-Bestand exakt zählen, nicht schätzen. Unter 350 Stück wird der Abend eng – siehe Tab „Gläser“.</span></div><span class="who w-sv">Service</span></div>
-    <div class="tl"><div class="tm t">Do</div><div class="bd"><b>Getränke einkühlen</b> <span>Prosecco, Tonic, Wein, Bier. Bei 6 °C Außentemperatur kann viel draußen stehen – spart Kühlraum und Eis.</span></div><span class="who w-bar">Bar</span></div>
-    <div class="tl"><div class="tm t">Do</div><div class="bd"><b>Negroni vorbatchen</b> <span>Gin + Campari + Vermouth in Flaschen vormischen. Enthält keine Kohlensäure, verliert nichts, wird über Nacht sogar runder. Größte Zeitersparnis des Abends.</span></div><span class="who w-bar">Bar</span></div>
-    <div class="tl"><div class="tm t">Do</div><div class="bd"><b>Transportkisten packen &amp; beschriften</b> <span>Pro Kiste ein Zettel mit Inhalt. Deko, Bar-Hardware, Gläser, Getränke, Toiletten getrennt.</span></div><span class="who w-all">alle</span></div>
-    <div class="tl"><div class="tm t">Do</div><div class="bd"><b>Eis fixieren – ca. 80 kg</b> <span>Isolierte Boxen dazu. Im Pavillon gibt es vermutlich keinen Kühlraum.</span></div><span class="who w-bar">Bar</span></div>
-  </div>
-
-  <p class="sec">Freitag 11.09.</p>
-  <div class="card">
-    <div class="tl"><div class="tm t">13:00</div><div class="bd"><b>1. Fahrt: Getränke, Eis, Bar-Hardware, Gläser</b> <span>Das Schwere zuerst, solange alle frisch sind.</span></div><span class="who w-all">alle</span></div>
-    <div class="tl"><div class="tm t">14:00</div><div class="bd"><b>Bar aufbauen</b> <span>Eine Hauptstation. Eis in Boxen, Flaschen in Griffreihenfolge, Abfall, Bruchkübel, Wischtücher.</span></div><span class="who w-bar">Bar</span></div>
-    <div class="tl"><div class="tm t">14:00</div><div class="bd"><b>Spülstation einrichten</b> <span>Zwei Wannen: heiß mit Spülmittel, klar zum Nachspülen. Abtropfgitter, Tücher. Ohne Glasspüler ist das die Lebensader des Abends.</span></div><span class="who w-sv">Service</span></div>
-    <div class="tl"><div class="tm t">15:00</div><div class="bd"><b>2. Fahrt: Deko, Felle, Lämpchen, Toiletten, Stehtische</b></div><span class="who w-all">alle</span></div>
-    <div class="tl"><div class="tm t">15:30</div><div class="bd"><b>Stellen &amp; Dekorieren</b> <span>Stehtische mit Mühlsäcken, Felle über Sitzflächen, Windlichter, Lämpchen, Aschenbecher. Fegen.</span></div><span class="who w-sv">Service</span></div>
-    <div class="tl"><div class="tm t">16:00</div><div class="bd"><b>Toiletten herrichten</b> <span>Servietten, Körbchen, Blumen, Kerze, Abfall leer.</span></div><span class="who w-sv">Service</span></div>
-    <div class="tl"><div class="tm t">16:30</div><div class="bd"><b>Garnituren schneiden</b> <span>Orangenscheiben, Limetten. Abgedeckt lagern.</span></div><span class="who w-bar">Bar</span></div>
-    <div class="tl hi"><div class="tm t">17:00</div><div class="bd"><b>Briefing – 10 Minuten, alle 5</b> <span>Rezepte, Positionen, Glas-Rotation, wer räumt ab, Last Order. Zu fünft muss jede Handbewegung sitzen.</span></div><span class="who w-all">alle</span></div>
-    <div class="tl hi"><div class="tm t">17:15</div><div class="bd"><b>60 Gläser mit Aperol vorportionieren</b> <span>4 cl Aperol pro Glas, in Reihen aufgestellt. Beim Empfang nur noch Eis + Prosecco + Soda. Halbiert die Zeit pro Drink.</span></div><span class="who w-bar">Bar</span></div>
-    <div class="tl"><div class="tm t">17:45</div><div class="bd"><b>Alle auf Position, 30 Gläser fertig gebaut auf Tabletts</b></div><span class="who w-all">alle</span></div>
-    <div class="tl hi"><div class="tm t">18:00</div><div class="bd"><b>Empfang – Drinks auf Tablett entgegen</b> <span>Zwei Personen mit Tabletts im Fluss, niemand stellt sich an. Kritischste 30 Minuten des Abends.</span></div><span class="who w-sv">Service</span></div>
-    <div class="tl"><div class="tm t">18:45</div><div class="bd"><b>Erste Abräum- und Spülrunde startet</b> <span>Ab jetzt läuft die Spülstation durchgehend. Nicht später anfangen.</span></div><span class="who w-sv">Service</span></div>
-    <div class="tl"><div class="tm t">19:00</div><div class="bd"><b>Snacks 1. Welle + Wasserkaraffen auf alle Tische</b></div><span class="who w-ku">Küche</span></div>
-    <div class="tl"><div class="tm t">20:30</div><div class="bd"><b>Snacks 2. Welle, Windlichter nachzünden, Aschenbecher tauschen</b></div><span class="who w-sv">Service</span></div>
-    <div class="tl"><div class="tm t">22:00</div><div class="bd"><b>Silberturm Kirschen &amp; Schleckeis</b> <span>Kirschen im selben 200-ml-Glas, Eis am Stiel im Korb. Licht runter, kurzer Moment.</span></div><span class="who w-sv">Service</span></div>
-    <div class="tl"><div class="tm t">23:30</div><div class="bd"><b>Last Order ansagen · Wasser nachstellen</b></div><span class="who w-bar">Bar</span></div>
-    <div class="tl"><div class="tm t">24:00</div><div class="bd"><b>Ausschank Ende</b></div><span class="who w-bar">Bar</span></div>
-    <div class="tl"><div class="tm t">00:15</div><div class="bd"><b>Restbestände zählen, Spirituosen sichern, Grobabbau</b> <span>Zählen noch am Abend – am nächsten Tag stimmt es nie. Rest am Samstag, Frühstück geht vor.</span></div><span class="who w-all">alle</span></div>
-  </div>
-</div>
-
-<!-- GLÄSER -->
-<div class="pane" id="p-glas" style="display:none">
-  <div class="alert a-red"><span>🥃</span><div><b>Das Glas ist euer Nadelöhr, nicht die Getränke.</b> Ein Typ, 200 ml, kein Glasspüler, 5 Personen. Getränke kann man nachkaufen – Gläser nicht. Rechne unten durch, ab wann es eng wird.</div></div>
-
-  <div class="card">
-    <h3>Durchsatz-Rechner</h3>
-    <div class="grid3">
-      <div><span class="label">Gläser vorhanden</span><input type="number" id="gl-have" value="300"></div>
-      <div><span class="label">Spülleistung / Std.</span><input type="number" id="gl-rate" value="140"></div>
-      <div><span class="label">Spülstart</span><input type="number" id="gl-start" value="19" min="18" max="23"></div>
+  <header class="top">
+    <div class="eyebrow">Algarve · Heute</div>
+    <h1>Lagos zu Fuß</h1>
+    <p class="meta"><b>2,5 Std</b> · ca. <b>2,6 km</b> · <b>9 Stationen</b> · Start: Dot Coffee</p>
+    <div class="routebar">
+      <a class="btn btn-primary" id="routeLink" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 1114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Route in Maps
+      </a>
+      <button class="btn" id="themeBtn" style="border-color:var(--line);color:var(--muted);background:transparent;cursor:pointer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        Ansicht
+      </button>
     </div>
-    <p style="font-size:11px;color:#888;margin-top:8px;line-height:1.5">140 Gläser/Std. = eine Person, die konsequent nur spült (zwei Wannen, heiß + klar, ca. 25 Sek. pro Glas inkl. Abtrocknen). Realistisch nur, wenn sie <b>nichts anderes</b> macht.</p>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="progress-label" id="barLabel">0 von 9 Stationen</div>
+  </header>
+
+  <div class="intro-note">
+    <b>So funktioniert's:</b> Tippe „Erledigt", wenn du eine Station abgehakt hast — der Fortschritt bleibt
+    auf diesem Gerät gespeichert. Die grün umrandete Karte ist deine nächste Station.
+    Gehzeiten sind gemütliche Schritte, ohne Pausen gerechnet.
   </div>
 
-  <div class="card"><table>
-    <thead><tr><th>Stunde</th><th class="num">Gläser raus</th><th class="num">gespült</th><th class="num">sauber verfügbar</th><th>Status</th></tr></thead>
-    <tbody id="gl-body"></tbody>
-  </table></div>
+  <div class="stops" id="stops"></div>
 
-  <div class="alert a-grn"><span>✅</span><div><b>Vier Hebel, falls es nicht aufgeht</b> – in dieser Reihenfolge:<ul class="pl" style="margin-top:6px">
-  <li><b>Bier bleibt in der Flasche.</b> Ist schon entschieden und spart rund 160 Gläser. Größter Einzeleffekt.</li>
-  <li><b>Gläser dazuborgen.</b> Vom Hotel, vom Miramonte, von den Lofts. Bis Mittwoch entschieden, sonst zu spät.</li>
-  <li><b>Wein in Karaffen auf die Stehtische.</b> Gäste schenken selbst nach, ein Glas wird mehrfach genutzt, das Service wird spürbar entlastet.</li>
-  <li><b>Campari Spritz streichen.</b> Fast identisch zum Aperol Spritz, kostet aber Entscheidungszeit an der Bar und zusätzliche Gläser durch Neugier-Wechsel.</li>
-  </ul></div></div>
+  <footer>
+    <b>Gut zu wissen:</b> Die Altstadt ist durchgehend Kopfsteinpflaster — feste Sohlen lohnen sich.
+    Vormittags liegt die Gasse zwischen Praça Gil Eanes und dem Sklavenmarkt im Schatten,
+    ab ca. 13 Uhr wird es auf den Plätzen ungemütlich heiß.
+    Museen in Lagos haben montags meist geschlossen; Öffnungszeiten und Eintritt bitte vor Ort prüfen.
+    <br><br>
+    <button class="reset" id="resetBtn">Fortschritt zurücksetzen</button>
+  </footer>
 
-  <div class="alert a-amb"><span>⚠️</span><div><b>Das 200-ml-Glas hat eine Nebenwirkung:</b> kleinere Portionen bedeuten mehr Ausschankvorgänge pro Gast. Die Getränkemenge in Litern bleibt gleich, aber Bar und Spüle arbeiten deutlich mehr. Deshalb rechnet die Kalkulation mit rund 9 Portionen pro Gast statt 7.</div></div>
-</div>
-
-<!-- GETRÄNKE -->
-<div class="pane" id="p-drinks" style="display:none">
-  <div class="alert a-blu"><span>📏</span><div><b>Rezepte auf das 200-ml-Glas angepasst.</b> Ein klassischer Spritz (6/9/3 cl) plus Eis passt hier nicht hinein, ein Gin Tonic mit 20 cl Tonic schon gar nicht. Die Rezepte unten sind heruntergerechnet und passen ins Glas.</div></div>
-
-  <div class="card">
-    <h3>Annahmen</h3>
-    <div class="grid2">
-      <div><span class="label">Gäste</span><input type="number" id="guests" value="140"></div>
-      <div><span class="label">Portionen pro Gast (6 h)</span><input type="number" id="dpp" value="9" step="0.5"></div>
-    </div>
-    <p style="font-size:11px;color:#888;margin-top:8px;line-height:1.5">All inclusive und kein Bezahlen treibt den Konsum nach oben, Vorabend vor dem Hauptfesttag dämpft ihn wieder – viele halten sich für Samstag zurück. 9 kleine Portionen entsprechen etwa 7 Drinks in normaler Glasgröße.</p>
-  </div>
-
-  <div class="grid3" style="margin-bottom:12px">
-    <div class="kpi"><div class="v" id="k-drinks">–</div><div class="l">Ausschank gesamt</div></div>
-    <div class="kpi"><div class="v" id="k-ice">–</div><div class="l">Eiswürfel</div></div>
-    <div class="kpi"><div class="v" id="k-cost">–</div><div class="l">Wareneinsatz</div></div>
-  </div>
-
-  <p class="sec">Rezepte für das 200-ml-Glas</p>
-  <div class="card"><table>
-    <thead><tr><th>Drink</th><th>Aufbau</th><th class="num">Flüssig</th></tr></thead>
-    <tbody>
-      <tr><td><b>Aperol Spritz</b></td><td>4 cl Aperol · 6 cl Prosecco · 2 cl Soda · 3 Eiswürfel · halbe Orangenscheibe</td><td class="num">12 cl</td></tr>
-      <tr><td><b>Campari Spritz</b></td><td>4 cl Campari · 6 cl Prosecco · 2 cl Soda · 3 Eiswürfel · Orangenzeste</td><td class="num">12 cl</td></tr>
-      <tr><td><b>Negroni</b> <span style="color:#16a34a;font-size:10px">vorgebatcht</span></td><td>7,5 cl aus der Batch-Flasche · 3 Eiswürfel · Orangenzeste</td><td class="num">7,5 cl</td></tr>
-      <tr><td><b>Gin Tonic</b></td><td>4 cl Gin · 12 cl Tonic · 3 Eiswürfel · Limette</td><td class="num">16 cl</td></tr>
-      <tr><td><b>Wein</b></td><td>1/8 l, oder in Karaffen zur Selbstbedienung</td><td class="num">12,5 cl</td></tr>
-      <tr><td><b>Bier</b></td><td>0,33 l Flasche, ohne Glas</td><td class="num">–</td></tr>
-      <tr><td><b>Wasser</b></td><td>Karaffen auf jedem Stehtisch</td><td class="num">–</td></tr>
-    </tbody>
-  </table>
-  <p style="font-size:11px;color:#888;margin-top:10px;line-height:1.5"><b>Negroni-Batch für ca. 90 Portionen:</b> 2,2 l Gin + 2,2 l Campari + 2,2 l Vermouth in Flaschen abfüllen, kalt stellen. Am Abend nur noch über Eis gießen.</p>
-  </div>
-
-  <p class="sec">Drink-Mix</p>
-  <div class="card"><table><thead><tr><th>Drink</th><th class="num">Anteil %</th><th class="num">Portionen</th></tr></thead><tbody id="mix-body"></tbody></table></div>
-
-  <p class="sec">Einkaufsliste</p>
-  <div class="card">
-    <table>
-      <thead><tr><th>Position</th><th class="num">Bedarf</th><th class="num">+ Puffer</th><th class="num">Deine Liste</th><th class="num">Differenz</th><th class="num">EK</th><th class="num">Summe</th></tr></thead>
-      <tbody id="buy-body"></tbody>
-    </table>
-    <p style="font-size:11px;color:#888;margin-top:10px;line-height:1.5">EK-Preise sind <b>Platzhalter</b> – mit deinen echten Einkaufspreisen überschreiben, dann rechnet die Summe live mit. Puffer +15 %, aufgerundet auf ganze Gebinde.</p>
-  </div>
-
-  <div class="alert a-amb"><span>🧊</span><div><b>Zur Eismenge – Korrektur:</b> 150 kg waren zu hoch gegriffen. Mit dem kleinen Glas gehen nur rund 3 Würfel pro Drink (ca. 80 g statt 200 g), und bei 6 °C Außentemperatur brauchst du kaum Eis zum Kühlen der Flaschen. Realistisch: <b>rund 80 kg</b>, inklusive Schmelzverlust über sechs Stunden.</div></div>
-</div>
-
-<!-- MATERIAL -->
-<div class="pane" id="p-mat" style="display:none">
-  <p class="sec">Transport – vor der Abfahrt abhaken</p>
-  <div class="card" id="c-trans"></div>
-  <p class="sec">Bar-Hardware</p>
-  <div class="card" id="c-bar"></div>
-  <p class="sec">Spülstation</p>
-  <div class="card" id="c-spuel"></div>
-  <p class="sec">Deko &amp; Wärme</p>
-  <div class="card" id="c-deko"></div>
-  <p class="sec">Toiletten</p>
-  <div class="card" id="c-wc"></div>
-</div>
-
-<!-- PERSONAL -->
-<div class="pane" id="p-team" style="display:none">
-  <div class="alert a-amb"><span>👥</span><div><b>5 Personen auf 140 Gäste ist dünn.</b> Ein Betreuungsschlüssel von 1:28 über sechs Stunden funktioniert nur, wenn Wein, Wasser und Bier möglichst selbstbedient laufen und niemand seine Position verlässt. Jede zusätzliche Aufgabe – Toiletten, Nachschub, Deko nachrichten – muss vorher jemandem fix zugeteilt sein, sonst macht sie niemand.</div></div>
-  <div class="card"><table>
-    <thead><tr><th>Position</th><th class="num">Anz.</th><th>Kernaufgabe</th></tr></thead>
-    <tbody>
-      <tr><td><b>Bar 1</b></td><td class="num">1</td><td>Baut Spritz und Gin Tonic, Hauptstation</td></tr>
-      <tr><td><b>Bar 2</b></td><td class="num">1</td><td>Negroni, Wein, Bier, Nachschub, Eis</td></tr>
-      <tr><td><b>Spüle / Gläser</b></td><td class="num">1</td><td>Ab 18:45 durchgehend spülen, nichts anderes</td></tr>
-      <tr><td><b>Fläche 1</b></td><td class="num">1</td><td>Tabletts, Abräumen, Wasserkaraffen</td></tr>
-      <tr><td><b>Fläche 2</b></td><td class="num">1</td><td>Snacks, Toiletten, Aschenbecher, Windlichter</td></tr>
-      <tr class="tot"><td>Gesamt</td><td class="num">5</td><td></td></tr>
-    </tbody>
-  </table></div>
-  <div class="card">
-    <h3>Briefing 17:00 – 10 Minuten</h3>
-    <ul class="pl">
-      <li>Rezepte und Mengen: alle bauen gleich, Jigger benutzen</li>
-      <li>Ab 18:45 spült eine Person durchgehend – das ist keine Aushilfstätigkeit, sondern die Voraussetzung dafür, dass ab 21:00 überhaupt noch ausgeschenkt werden kann</li>
-      <li>Leere Gläser konsequent einsammeln, auch halbvolle Verirrte auf Fensterbänken</li>
-      <li>Wasser aktiv anbieten, Karaffen ungefragt nachfüllen</li>
-      <li>Wer ist Ansprechpartner fürs Brautpaar – <b>eine</b> Person</li>
-      <li>Last Order 23:30, Ende 24:00</li>
-      <li>Bei Regen: was kommt in welcher Reihenfolge rein</li>
-      <li>Restbestände werden noch am Abend gezählt</li>
-    </ul>
-  </div>
-</div>
-
-<!-- OFFEN -->
-<div class="pane" id="p-open" style="display:none">
-  <div class="alert a-blu"><span>❓</span><div>Der Pavillon ist die größte Unbekannte. Die ersten fünf Punkte entscheiden, ob der Plan oben überhaupt trägt.</div></div>
-  <div class="card" id="c-open"></div>
-  <p class="sec">Was Gäste tatsächlich freut</p>
-  <div class="card"><ul class="pl">
-    <li><b>Kein Warten am Anfang.</b> Der Drink kommt auf dem Tablett entgegen. Das prägt den ganzen Abend – und entzerrt die Bar genau dann, wenn sie am meisten belastet ist.</li>
-    <li><b>Wärme.</b> Bei 6 °C entscheidet Behaglichkeit alles: Felle, Decken im Korb, Heizung, etwas Warmes in der Hand.</li>
-    <li><b>Wasser sichtbar und selbstverständlich.</b> Karaffen auf jedem Stehtisch. Am Vorabend besonders – die Gäste sollen Samstag noch feiern können.</li>
-    <li><b>Toiletten-Körbchen.</b> Blasenpflaster, Haarnadeln, Nähset, Deo, Tampons, Fleckenroller, Aspirin. Wird jedes Mal bemerkt.</li>
-    <li><b>Der Schleckeis-Moment um 22:00.</b> Unerwartet, verspielt, fotogen – und bei einem Vorabend genau die richtige Tonlage.</li>
-    <li><b>Licht statt Beleuchtung.</b> Ab ca. 19:45 dimmen, Kerzen und Lämpchen übernehmen.</li>
-    <li><b>Reichlich Aschenbecher.</b> Zu wenige ruinieren die Optik der Raucherecke binnen einer Stunde.</li>
-    <li><b>Regenschirme am Eingang</b> und ein trockener Weg vom Auto – bei 65 % Regenwahrscheinlichkeit kein Nice-to-have.</li>
-    <li><b>Ein Signature-Drink</b> mit Bezug zum Paar, auf einer handgeschriebenen Karte. Kostet nichts, wird erzählt.</li>
-  </ul></div>
-</div>
-
-<button class="btn" onclick="window.print()" style="margin-top:20px">🖨️ Drucken / als PDF sichern</button>
 </div>
 
 <script>
-const TABS=[['ablauf','📋 Ablauf'],['glas','🥃 Gläser'],['drinks','🍹 Getränke'],['mat','📦 Material'],['team','👥 Personal'],['open','❓ Offen']];
-const tb=document.getElementById('tabs');
-TABS.forEach(([id,l],i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' active':'');b.textContent=l;
-b.onclick=()=>{TABS.forEach(([j])=>document.getElementById('p-'+j).style.display=j===id?'block':'none');
-[...tb.children].forEach((c,k)=>c.className='tab'+(TABS[k][0]===id?' active':''));};tb.appendChild(b);});
+(function(){
+  'use strict';
 
-const MIX=[
- {k:'aperol',n:'Aperol Spritz',p:26},
- {k:'camspr',n:'Campari Spritz',p:8},
- {k:'negro', n:'Negroni',p:7},
- {k:'gt',    n:'Gin Tonic',p:17},
- {k:'ww',    n:'Weißwein',p:14},
- {k:'rw',    n:'Rotwein',p:5},
- {k:'bier',  n:'Bier (Flasche)',p:13},
- {k:'af',    n:'Wasser / alkoholfrei',p:10},
-];
+  var STOPS = [
+    {
+      id:'dot',
+      name:'Dot Coffee',
+      q:'Dot Coffee Lagos Portugal',
+      time:'09:00',
+      stay:'25 Min',
+      walk:null,
+      tags:['Start','Kaffee'],
+      text:'Der Startpunkt. Kleine Spezialitätenrösterei in der Altstadt — Filterkaffee, Bica und ein ordentliches Pastel de nata. Setz dich kurz raus, trink aus und sortier die Route, bevor die Gassen voll werden.',
+      tip:'<b>Früh dran sein lohnt:</b> Vor 10 Uhr gehört die Altstadt noch den Einheimischen und den Lieferwagen.'
+    },
+    {
+      id:'gileanes',
+      name:'Praça Gil Eanes & Dom-Sebastião-Statue',
+      q:'Praça Gil Eanes Lagos Portugal',
+      time:'09:30',
+      stay:'15 Min',
+      walk:'4 Min · 300 m',
+      tags:['Statue','Platz'],
+      highlight:true,
+      text:'Der zentrale Platz der Stadt — und die wohl meistdiskutierte Statue der Algarve. João Cutileiro stellte den jungen König Dom Sebastião 1973 nicht als Helden dar, sondern als fast kindliche, schlaksige Figur in Rüstung. Viele in Lagos nennen sie bis heute schlicht „den Astronauten".',
+      tip:'<b>Kontext:</b> Sebastião verschwand 1578 in der Schlacht bei Alcácer-Quibir. Dass ein Bildhauer den Nationalmythos ausgerechnet als unfertigen Jungen zeigt, war zur Zeit der Diktatur eine Ansage.'
+    },
+    {
+      id:'mercado',
+      name:'Mercado Municipal',
+      q:'Mercado Municipal de Lagos Portugal',
+      time:'09:50',
+      stay:'20 Min',
+      walk:'3 Min · 230 m',
+      tags:['Markt','Essen'],
+      text:'Zweistöckige Markthalle direkt an der Uferstraße. Unten Fisch und Meeresfrüchte, oben Obst, Gemüse und Käse. Kein Touristen-Schaustück, sondern der Ort, an dem Lagos tatsächlich einkauft.',
+      tip:'<b>Timing:</b> Sonntags geschlossen, und der Fischstand ist gegen Mittag durch. Wer Fisch sehen will, kommt vormittags.'
+    },
+    {
+      id:'infante',
+      name:'Praça Infante Dom Henrique',
+      q:'Praça Infante Dom Henrique Lagos Portugal',
+      time:'10:15',
+      stay:'10 Min',
+      walk:'3 Min · 200 m',
+      tags:['Platz','Geschichte'],
+      text:'Der Platz am Wasser mit der sitzenden Statue von Heinrich dem Seefahrer, Blick über die Marina. Von hier aus wurden die Expeditionen finanziert und ausgerüstet, die Portugals Weg die afrikanische Küste hinunter öffneten.',
+      tip:'<b>Halt kurz inne:</b> Derselbe Platz, an dem die Statue steht, grenzt direkt an das Gebäude der nächsten Station. Diese Nachbarschaft ist kein Zufall — sie ist die ganze Geschichte in zwanzig Metern.'
+    },
+    {
+      id:'escravos',
+      name:'Mercado de Escravos',
+      q:'Mercado de Escravos Lagos Portugal',
+      time:'10:30',
+      stay:'35 Min',
+      walk:'1 Min · 30 m',
+      tags:['Museum','Schwer'],
+      highlight:true,
+      text:'Der erste Sklavenmarkt Europas. 1444 wurden hier unter den Arkaden die ersten von portugiesischen Schiffen verschleppten Menschen aus Westafrika verkauft. Heute beherbergt der Bau das Núcleo Museológico Rota da Escravatura — klein, ruhig und ohne jede Beschönigung.',
+      tip:'<b>Plane Zeit ein.</b> Der Raum ist winzig, aber man geht nicht in fünf Minuten wieder raus. Die Ausstellung zeigt auch die Funde des Gräberfelds am Vale da Gafaria, wo Verstorbene wie Abfall verscharrt wurden.'
+    },
+    {
+      id:'santoantonio',
+      name:'Igreja de Santo António & Museu Municipal',
+      q:'Igreja de Santo Antonio Lagos Portugal',
+      time:'11:10',
+      stay:'25 Min',
+      walk:'5 Min · 400 m',
+      tags:['Kirche','Barock'],
+      text:'Von außen unscheinbar weiß, innen eine der überwältigendsten Talha-dourada-Arbeiten Portugals: vergoldetes Schnitzwerk vom Boden bis zur Decke, nach dem Erdbeben von 1755 wieder aufgebaut. Der Eintritt schließt das angeschlossene Stadtmuseum mit ein.',
+      tip:'<b>Fotografieren</b> ist im Kirchenschiff meist untersagt — einfach hinsetzen und zwei Minuten schauen. Lohnt mehr als das Handy.'
+    },
+    {
+      id:'bandeira',
+      name:'Forte da Ponta da Bandeira',
+      q:'Forte da Ponta da Bandeira Lagos Portugal',
+      time:'11:40',
+      stay:'20 Min',
+      walk:'6 Min · 450 m',
+      tags:['Festung','Aussicht'],
+      text:'Kleine Sternschanze aus dem 17. Jahrhundert, über eine Zugbrücke erreichbar, direkt am Hafeneingang. Von der Mauer aus siehst du die Flussmündung, die Marina und die Bucht — der beste Rundumblick der Route ohne einen einzigen Höhenmeter.',
+      tip:'<b>Direkt daneben</b> liegt die Praia da Batata. Wenn die Füße reichen, lohnt der Abstecher zu den Felsdurchgängen am östlichen Ende des Strands.'
+    },
+    {
+      id:'streetart',
+      name:'Street-Art-Altstadt',
+      q:'Rua Candido dos Reis Lagos Portugal',
+      time:'12:05',
+      stay:'30 Min',
+      walk:'7 Min · 550 m',
+      tags:['Street Art','Gassen'],
+      highlight:true,
+      text:'Zurück ins Gassennetz zwischen Rua Cândido dos Reis, Rua da Barroca und den Querstraßen zur Stadtmauer. Hier hängen Murals, bemalte Rollläden und Azulejo-Reste dicht nebeneinander. Kein festgelegter Weg — lauf die Seitengassen ab, die interessanteren Sachen stehen selten an der Hauptachse.',
+      tip:'<b>Rollläden lohnen sich abends:</b> Viele der besten Arbeiten sind auf geschlossene Ladentüren gemalt und tagsüber schlicht nicht zu sehen.'
+    },
+    {
+      id:'muralhas',
+      name:'Stadtmauer & Ausklang',
+      q:'Muralhas de Lagos Portugal',
+      time:'12:40',
+      stay:'offen',
+      walk:'5 Min · 400 m',
+      tags:['Ziel','Mauer'],
+      text:'Entlang der erhaltenen Muralhas zurück Richtung Zentrum — die Mauer stammt in Teilen aus maurischer Zeit und wurde im 16. Jahrhundert ausgebaut. Guter Punkt, um die Runde zu schließen und in einer der Gassen mittagessen zu gehen.',
+      tip:'<b>Von hier aus:</b> Wer noch Luft hat, nimmt den Küstenweg Richtung Ponta da Piedade — rund 40 Minuten zu Fuß, und landschaftlich das Beste, was Lagos zu bieten hat.'
+    }
+  ];
 
-const POS=[
- {n:'Aperol',                 u:'Fl. 1 l',   s:1,   ek:13.0,mine:7, f:m=>m.aperol*0.04},
- {n:'Campari',                u:'Fl. 1 l',   s:1,   ek:15.0,mine:6, f:m=>m.camspr*0.04+m.negro*0.025},
- {n:'Gin (Tanqueray)',        u:'Fl. 1 l',   s:1,   ek:19.0,mine:7, f:m=>m.gt*0.04+m.negro*0.025},
- {n:'Vermouth rosso',         u:'Fl. 1 l',   s:1,   ek:8.0, mine:6, f:m=>m.negro*0.025},
- {n:'Prosecco Serena friz.',  u:'Fl. 1 l',   s:1,   ek:5.0, mine:6, f:m=>(m.aperol+m.camspr)*0.06},
- {n:'Tonic Water',            u:'Fl. 1 l',   s:1,   ek:2.0, mine:16,f:m=>m.gt*0.12},
- {n:'Soda / Sprudel',         u:'Fl. 1 l',   s:1,   ek:0.90,mine:24,f:m=>(m.aperol+m.camspr)*0.02},
- {n:'Weißwein',               u:'Fl. 0,75 l',s:0.75,ek:6.0, mine:0, f:m=>m.ww*0.125},
- {n:'Rotwein',                u:'Fl. 0,75 l',s:0.75,ek:7.0, mine:0, f:m=>m.rw*0.125},
- {n:'Bier',                   u:'Fl. 0,33 l',s:0.33,ek:0.80,mine:0, f:m=>m.bier*0.33},
- {n:'Wasser still + prickelnd',u:'Fl. 1 l',  s:1,   ek:0.90,mine:0, f:m=>m.af*0.2+m.guests*0.30},
-];
+  var KEY = 'lagos-walk-done-v1';
+  var THEME_KEY = 'lagos-walk-theme';
 
-// Stundenverteilung des Ausschanks
-const HRS=[['18–19',0.22],['19–20',0.18],['20–21',0.15],['21–22',0.15],['22–23',0.16],['23–24',0.14]];
+  function loadDone(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveDone(d){
+    try{ localStorage.setItem(KEY, JSON.stringify(d)); }catch(e){}
+  }
 
-function calc(){
-  const g=+document.getElementById('guests').value||140;
-  const d=+document.getElementById('dpp').value||9;
-  const total=Math.round(g*d);
-  const m={guests:g};let tp=0;
-  MIX.forEach(x=>{x.p=+document.getElementById('mix-'+x.k).value||0;tp+=x.p;});
-  MIX.forEach(x=>{m[x.k]=Math.round(total*x.p/100);document.getElementById('n-'+x.k).textContent=m[x.k];});
-  document.getElementById('mix-warn').textContent=tp===100?'':'⚠ Anteile ergeben '+tp+' % statt 100 %';
+  var done = loadDone();
 
-  const ice=Math.round(((m.aperol+m.camspr+m.gt+m.negro)*0.08)*1.35);
-  document.getElementById('k-drinks').textContent=total.toLocaleString('de-AT');
-  document.getElementById('k-ice').textContent=ice+' kg';
+  var ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 1114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
 
-  const body=document.getElementById('buy-body');body.innerHTML='';let sum=0;
-  POS.forEach((p,i)=>{
-    const need=Math.ceil(p.f(m)/p.s), buf=Math.ceil(need*1.15);
-    const e=document.getElementById('ek-'+i), ek=e?(+e.value||0):p.ek;
-    sum+=buf*ek;
-    const df=p.mine?buf-p.mine:null;
-    const dt=df===null?'–':(df>0?'<span class="bad">+'+df+'</span>':(df<0?'<span class="ok">−'+Math.abs(df)+'</span>':'<span class="ok">passt</span>'));
-    const tr=document.createElement('tr');
-    tr.innerHTML='<td><b>'+p.n+'</b><br><span style="color:#888;font-size:10px">'+p.u+'</span></td><td class="num">'+need
-      +'</td><td class="num"><b>'+buf+'</b></td><td class="num" style="color:#888">'+(p.mine||'–')+'</td><td class="num">'+dt
-      +'</td><td class="num"><input class="mini" type="number" step="0.1" id="ek-'+i+'" value="'+ek.toFixed(2)+'"></td><td class="num">'+Math.round(buf*ek).toLocaleString('de-AT')+' €</td>';
-    body.appendChild(tr);
+  function mapUrl(q){
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+  }
+
+  var stopsEl = document.getElementById('stops');
+  var barEl = document.getElementById('bar');
+  var barLabelEl = document.getElementById('barLabel');
+
+  function render(){
+    stopsEl.innerHTML = '';
+    var firstOpen = -1;
+    for(var i=0;i<STOPS.length;i++){
+      if(!done[STOPS[i].id]){ firstOpen = i; break; }
+    }
+
+    STOPS.forEach(function(s, i){
+      if(s.walk){
+        var w = document.createElement('div');
+        w.className = 'walk';
+        w.innerHTML = '<span>' + s.walk + ' zu Fuß</span>';
+        stopsEl.appendChild(w);
+      }
+
+      var isDone = !!done[s.id];
+      var card = document.createElement('article');
+      card.className = 'stop'
+        + (isDone ? ' done' : '')
+        + (s.highlight && !isDone ? ' highlight' : '')
+        + (i === firstOpen ? ' today' : '');
+
+      var tags = (s.tags || []).map(function(t){
+        var hl = s.highlight && t === s.tags[0];
+        return '<span class="tag' + (hl ? ' hl' : '') + '">' + t + '</span>';
+      }).join('');
+
+      card.innerHTML =
+        '<div class="num"><span>' + (i+1) + '</span></div>' +
+        '<div class="body">' +
+          '<h2>' + s.name + '</h2>' +
+          '<div class="when"><b>' + s.time + '</b><span>Aufenthalt ' + s.stay + '</span></div>' +
+          '<div class="tags">' + tags + '</div>' +
+          '<p>' + s.text + '</p>' +
+          (s.tip ? '<div class="tip">' + s.tip + '</div>' : '') +
+          '<div class="actions">' +
+            '<a class="link" href="' + mapUrl(s.q) + '" target="_blank" rel="noopener">' + ICON_PIN + 'Karte</a>' +
+            '<button class="toggle" data-id="' + s.id + '">' + (isDone ? 'Erledigt ✓' : 'Erledigt') + '</button>' +
+          '</div>' +
+        '</div>';
+
+      stopsEl.appendChild(card);
+    });
+
+    var count = STOPS.filter(function(s){ return done[s.id]; }).length;
+    var pct = Math.round(count / STOPS.length * 100);
+    barEl.style.width = pct + '%';
+    barLabelEl.textContent = count + ' von ' + STOPS.length + ' Stationen'
+      + (count === STOPS.length ? ' — Runde komplett.' : '');
+  }
+
+  stopsEl.addEventListener('click', function(e){
+    var btn = e.target.closest('.toggle');
+    if(!btn) return;
+    var id = btn.getAttribute('data-id');
+    if(done[id]){ delete done[id]; } else { done[id] = true; }
+    saveDone(done);
+    render();
   });
-  const eisC=ice*0.45;sum+=eisC;
-  const tr=document.createElement('tr');
-  tr.innerHTML='<td><b>Eiswürfel</b><br><span style="color:#888;font-size:10px">kg zugekauft</span></td><td class="num">'+ice+'</td><td class="num"><b>'+ice+'</b></td><td class="num" style="color:#888">–</td><td class="num">–</td><td class="num" style="color:#888">0,45</td><td class="num">'+Math.round(eisC)+' €</td>';
-  body.appendChild(tr);
-  const tt=document.createElement('tr');tt.className='tot';
-  tt.innerHTML='<td>Wareneinsatz Getränke</td><td colspan="5"></td><td class="num">'+Math.round(sum).toLocaleString('de-AT')+' €</td>';
-  body.appendChild(tt);
-  document.getElementById('k-cost').textContent=Math.round(sum).toLocaleString('de-AT')+' €';
-  POS.forEach((p,i)=>{const e=document.getElementById('ek-'+i);if(e)e.oninput=calc;});
 
-  glasses(total,m);
-}
-
-function glasses(total,m){
-  // Bier braucht kein Glas
-  const needGlass=total-m.bier;
-  const have=+document.getElementById('gl-have').value||300;
-  const rate=+document.getElementById('gl-rate').value||140;
-  const start=+document.getElementById('gl-start').value||19;
-  let clean=have, dirty=0;
-  const b=document.getElementById('gl-body');b.innerHTML='';
-  HRS.forEach((h,i)=>{
-    const hour=18+i;
-    const dem=Math.round(needGlass*h[1]);
-    const used=Math.min(dem,clean);
-    clean-=used; dirty+=used;
-    const washed=hour>=start?Math.min(rate,dirty):0;
-    dirty-=washed; clean+=washed;
-    const short=dem-used;
-    const st=short>0?'<span class="bad">'+short+' Gläser fehlen</span>':(clean<40?'<span class="bad">kritisch knapp</span>':(clean<90?'<span style="color:#d97706;font-weight:600">eng</span>':'<span class="ok">ok</span>'));
-    const tr=document.createElement('tr');
-    tr.innerHTML='<td class="t">'+h[0]+'</td><td class="num">'+dem+'</td><td class="num">'+washed+'</td><td class="num"><b>'+Math.round(clean)+'</b></td><td>'+st+'</td>';
-    b.appendChild(tr);
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    done = {};
+    saveDone(done);
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-}
 
-const mb=document.getElementById('mix-body');
-MIX.forEach(x=>{const tr=document.createElement('tr');
-tr.innerHTML='<td>'+x.n+'</td><td class="num"><input class="mini" type="number" id="mix-'+x.k+'" value="'+x.p+'"></td><td class="num"><b id="n-'+x.k+'">–</b></td>';
-mb.appendChild(tr);});
-const wr=document.createElement('tr');wr.innerHTML='<td colspan="3" style="color:#dc2626;font-size:11px;font-weight:600" id="mix-warn"></td>';mb.appendChild(wr);
-['guests','dpp','gl-have','gl-rate','gl-start'].forEach(id=>document.getElementById(id).oninput=calc);
-MIX.forEach(x=>document.getElementById('mix-'+x.k).oninput=calc);
+  // Gesamtroute in Google Maps: Start, Wegpunkte, Ziel
+  (function(){
+    var first = STOPS[0].q;
+    var last = STOPS[STOPS.length - 1].q;
+    var mid = STOPS.slice(1, -1).map(function(s){ return s.q; }).join('|');
+    document.getElementById('routeLink').href =
+      'https://www.google.com/maps/dir/?api=1'
+      + '&origin=' + encodeURIComponent(first)
+      + '&destination=' + encodeURIComponent(last)
+      + '&waypoints=' + encodeURIComponent(mid)
+      + '&travelmode=walking';
+  })();
 
-const LISTS={
- 'c-trans':[
-  ['Gläser – gezählt und in Kisten','die kritischste Fracht, gepolstert transportieren'],
-  ['Getränke komplett','vorgekühlt, Liste abhaken – Nachholen ist am Freitag nicht drin'],
-  ['Eis ca. 80 kg + isolierte Boxen',''],
-  ['Negroni-Batch-Flaschen','Donnerstag vorgemischt'],
-  ['Bar-Hardware-Kiste',''],
-  ['Deko-Kiste: Lämpchen, Windlichter, Felle, Mühlsäcke',''],
-  ['Toiletten-Kiste',''],
-  ['Stehtische',''],
-  ['Verlängerungskabel &amp; Mehrfachstecker','externe Location, immer zu wenig'],
-  ['Müllsäcke, Putztücher, Kehrschaufel',''],
- ],
- 'c-bar':[
-  ['Jigger / Messbecher pro Station','ohne das laufen Rezepte und Kalkulation auseinander'],
-  ['Eiszangen und Eisschaufeln',''],
-  ['Flaschenöffner mehrfach','verschwinden zuverlässig – 4 Stück mitnehmen'],
-  ['Garnituren: Orangen, Limetten','ab 16:30 schneiden, abgedeckt'],
-  ['Schneidbrett, Messer, Zestenreibe',''],
-  ['Bruchkübel + Abfallbehälter',''],
-  ['Tabletts mit rutschfester Auflage','für den Empfang mindestens 4'],
-  ['Wasserkaraffen','eine pro Stehtisch'],
-  ['Weinkaraffen','falls Wein selbstbedient läuft'],
- ],
- 'c-spuel':[
-  ['Zwei Spülwannen','heiß mit Spülmittel + klar zum Nachspülen'],
-  ['Heißwasserquelle vor Ort geklärt','wenn keine da ist, ändert sich der ganze Plan'],
-  ['Abtropfgitter / Abtropfmatten',''],
-  ['Poliertücher – reichlich','mindestens 15 Stück'],
-  ['Spülmittel, Handschuhe',''],
-  ['Transportkisten für schmutzige Gläser','damit die Fläche nicht zustellt'],
-  ['Spülplatz außer Sichtweite der Gäste',''],
- ],
- 'c-deko':[
-  ['Lämpchen vom Miramonte','Funktion und Akkus vorher testen'],
-  ['Windlichter Rechberger + Teelichter','6 Stunden Brenndauer einplanen, Nachschub mitnehmen'],
-  ['Felle','über Sitzflächen – Deko und Wärme zugleich'],
-  ['Mühlsäcke als Stehtisch-Hussen',''],
-  ['Decken im Korb','zusätzlich zu den Fellen, bei 6 °C'],
-  ['Aschenbecher – großzügig',''],
-  ['Kerzen und mehrere Feuerzeuge verteilt',''],
-  ['Papierservietten großzügig','Verbrauch wird immer unterschätzt'],
-  ['Heizung / Heizpilze + volle Gasflaschen',''],
- ],
- 'c-wc':[
-  ['Servietten oder Handtücher gerollt im Korb',''],
-  ['Gäste-Körbchen','Blasenpflaster, Haarnadeln, Nähset, Deo, Tampons, Fleckenroller, Aspirin'],
-  ['Blumen + Kerze',''],
-  ['Seife aufgefüllt, Reserve-Klopapier sichtbar',''],
-  ['Abfall geleert vor 18:00',''],
-  ['Zwischenkontrolle 20:30 und 22:30','fix einer Person zugeteilt'],
- ],
- 'c-open':[
-  ['Gibt es im Pavillon fließend heißes Wasser und einen Spülplatz?','Ohne das ist die Glas-Rotation nicht machbar und ihr braucht doppelt so viele Gläser'],
-  ['Wie viel Strom liegt an?','Heizpilze, Licht, Musik, evtl. Kühlung – Ampere-Grenze vorher kennen'],
-  ['Ist der Pavillon schließbar und beheizbar?','Bei 5–8 °C und Regen die entscheidende Frage'],
-  ['Toiletten vor Ort oder im Hotel?','Ändert Wege, Betreuung und Materialliste'],
-  ['Anfahrt zum Abladen – wie nah kommt man ran?','80 kg Eis und 300 Gläser trägt man ungern weit'],
-  ['Wie viele Gläser sind tatsächlich vorhanden?','Exakt zählen. Bestimmt, ob dazugeborgt werden muss – und das nur bis Mittwoch'],
-  ['Wer hat die Leitung am Abend?','Eine Person entscheidet, sonst blockiert sich das Team zu fünft'],
-  ['Snacks: was genau, wer macht sie, wie werden sie warm gehalten?',''],
-  ['Musik: DJ, Band oder Playlist? Lärmauflage nach 22:00?',''],
-  ['Sind die Zahlen aus deinem Screenshot Bestand oder Wunschliste?','Bestimmt, was noch bestellt werden muss'],
-  ['Vereinbarter Pauschalpreis pro Person?','Ohne das ist die Kalkulation nur eine Kostenrechnung'],
-  ['Wer räumt Samstag früh ab?','Frühstück startet 06:00'],
- ],
-};
-Object.entries(LISTS).forEach(([id,items])=>{
-  const c=document.getElementById(id);
-  items.forEach((it,i)=>{const d=document.createElement('div');d.className='chk';
-  d.innerHTML='<input type="checkbox" id="'+id+i+'"><label for="'+id+i+'">'+it[0]+(it[1]?'<span class="note">'+it[1]+'</span>':'')+'</label>';c.appendChild(d);});
-});
+  // Ansicht: Auto -> Hell -> Dunkel
+  (function(){
+    var btn = document.getElementById('themeBtn');
+    var saved;
+    try{ saved = localStorage.getItem(THEME_KEY); }catch(e){}
+    if(saved === 'light' || saved === 'dark'){
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme');
+      var next = cur === 'light' ? 'dark' : (cur === 'dark' ? null : 'light');
+      if(next){
+        document.documentElement.setAttribute('data-theme', next);
+        try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+      }else{
+        document.documentElement.removeAttribute('data-theme');
+        try{ localStorage.removeItem(THEME_KEY); }catch(e){}
+      }
+    });
+  })();
 
-calc();
+  render();
+})();
 </script>
 </body>
 </html>
