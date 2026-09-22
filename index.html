@@ -119,6 +119,19 @@
   }
   .bonus b{color:var(--ink)}
   .bonus h2{font-size:16px;margin:0 0 8px;color:var(--ink)}
+  .morebtn{
+    font-family:'Inter';font-size:12.5px;font-weight:600;color:var(--accent);background:transparent;
+    border:1px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:5px;
+  }
+  .morebtn::after{content:'\25be';font-size:10px;line-height:1}
+  .morebtn[aria-expanded="true"]::after{content:'\25b4'}
+  .moreinfo{
+    display:none;margin:10px 0 0;padding:8px 10px;border-radius:6px;
+    background:var(--surface-2);border-left:3px solid var(--line);
+    font-size:12.5px;line-height:1.5;color:var(--muted);
+  }
+  .moreinfo.open{display:block}
   footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:26px}
 </style>
 </head>
@@ -160,46 +173,54 @@
 <script>
 (function(){
   const stops = [
-    {n:1, tag:"Start", title:"Dot Coffee", dur:"jetzt",
-     blurb:"Rua Prof. Luís de Azevedo 2 &mdash; mitten in der Altstadt, zwei Minuten von der Kirche Santo António entfernt. Kaffee austrinken, dann geht's direkt los.",
-     q:"Dot Coffee, Rua Prof. Luís de Azevedo, Lagos, Portugal"},
-    {n:2, tag:"Barock & Archäologie", title:"Igreja de Santo António & Museu de Lagos", dur:"~20 Min",
-     blurb:"Von außen unscheinbar, innen eine Explosion aus vergoldetem Schnitzwerk, Azulejos und einer Trompe-l'œil-Deckenmalerei aus dem 18. Jahrhundert. Das angeschlossene Museum spannt den Bogen von römischen Funden bis zur religiösen Kunst.",
-     q:"Igreja de Santo António, Lagos, Portugal"},
-    {n:3, tag:"★ Herzstück von Lagos", title:"Praça do Infante Dom Henrique", dur:"~5 Min", highlight:true,
-     blurb:"Die Statue Heinrich des Seefahrers steht genau dort, wo Portugals „Zeitalter der Entdeckungen“ seinen Ausgang nahm – von hier organisierte er Expeditionen entlang Afrikas Küste, die die Welt verändern sollten.",
-     read:"Der Eröffnungsabsatz des Lagos-Kapitels (S. 194, „When a naval fleet set sail to conquer Ceuta in 1415…“) erzählt diese Geschichte im Original sehr eindrücklich in wenigen Zeilen.",
-     q:"Praça do Infante Dom Henrique, Lagos, Portugal"},
-    {n:4, tag:"★ Muss man gesehen haben", title:"Antigo Mercado de Escravos", dur:"~15–20 Min", highlight:true,
-     blurb:"Direkt am selben Platz: mutmaßlich Europas erster Sklavenmarkt, eröffnet 1444. Das kleine zweistöckige Museum zeigt die andere Seite der „Entdeckungen“ unbeschönigt – 2009 wurden unter einer nahen Deponie über 150 Skelette versklavter Menschen gefunden.",
-     read:"Die Infobox „Europe's First Slave Market“ (S. 196) fasst die Fakten im Original knapp, aber sehr konkret zusammen.",
-     q:"Antigo Mercado de Escravos, Lagos, Portugal"},
-    {n:5, tag:"Festungstor", title:"Arco de São Gonçalo", dur:"~5 Min",
-     blurb:"Turmflankierter Torbogen der einstigen Gouverneursburg – der Übergang von der Altstadt zum Hafen, durch den man buchstäblich in die maritime Geschichte von Lagos hineinläuft.",
-     q:"Arco de São Gonçalo, Lagos, Portugal"},
-    {n:6, tag:"Hafenblick", title:"Forte da Ponta da Bandeira", dur:"~15 Min",
-     blurb:"Festung mit Zugbrücke direkt an der Hafeneinfahrt. Die kleine Dachterrasse blickt auf Meia Praia und den Atlantik – kurzes Innehalten, bevor es an der Marina entlang weitergeht.",
-     q:"Forte da Ponta da Bandeira, Lagos, Portugal"},
-    {n:7, tag:"Zeitalter der Entdeckungen", title:"Karavelle „Boa Esperança“ (Marina)", dur:"~10 Min",
-     blurb:"1415 stach von hier eine Flotte aus, um Ceuta zu erobern – der Moment, in dem Lagos in die große Geschichte eintrat. Der Nachbau zeigt, wie klein und fragil die Schiffe waren, mit denen Portugal halb Afrikas Küste kartierte.",
-     q:"Marina de Lagos, Lagos, Portugal"},
-    {n:8, tag:"Entdeckerplatz", title:"Praça Gil Eanes", dur:"~5 Min",
-     blurb:"Benannt nach dem Seefahrer, der 1434 als erster Europäer das gefürchtete Kap Bojador umsegelte – bis dahin galt es als Rand der bekannten Welt. Zentraler, lebendiger Platz der Altstadt.",
-     q:"Praça Gil Eanes, Lagos, Portugal"},
-    {n:9, tag:"Literatur", title:"Praça Luís de Camões", dur:"~5 Min",
-     blurb:"Platz für Portugals Nationaldichter, der mit „Os Lusíadas“ das Epos über genau diese Entdeckungsfahrten schrieb. Das grün gekachelte Haus am Platz ist eines der schönsten Fotomotive der Altstadt.",
-     q:"Praça Luís de Camões, Lagos, Portugal"},
-    {n:10, tag:"Street Art", title:"Centro Ciência Viva de Lagos", dur:"~10 Min",
-     blurb:"Ein altes Markthaus, dessen Fassade heute komplett mit Straßenkunst bedeckt ist – Symbol für das neue Lagos aus Kaffeeröstereien, Weinbars und Ateliers, das sich über die Altstadt der Karavellen-Ära gelegt hat.",
-     q:"Centro Ciência Viva de Lagos, Portugal"},
-    {n:11, tag:"Alltag & Fischerei", title:"Mercado Municipal (Viv'o Mercado)", dur:"~15 Min", today:true,
-     blurb:"Die Markthalle, in der Lagos bis heute lebt: frisch gefangener Fisch, Muscheln aus der Ria de Alvor. Hier schmeckt man, warum die Stadt seit Jahrhunderten vom Meer lebt.",
-     todayNote:"Heute läuft im Markt eine kleine Musik-Animation (Viv'o Mercado) – einfach reinhören, wenn gerade etwas spielt.",
-     q:"Mercado Municipal de Lagos, Portugal"},
-    {n:12, tag:"Zeitgenössische Kunst", title:"Lagos Cultural Centre (Armazém Regimental)", dur:"~20 Min", today:true,
+    {n:1, tag:"Zeitgenössische Kunst", title:"Lagos Cultural Centre (Armazém Regimental)", dur:"~20 Min", today:true,
      blurb:"Ein Militärlager aus dem 17. Jahrhundert, heute Bühne für Theater, Tanz und wechselnde Ausstellungen – mit einem der auffälligsten Azulejo-Wandbilder der Stadt an der Fassade.",
      todayNote:"Heute (bis 30.9.) läuft dort die Ausstellung „Here Come the Others!“ von Nélia Duarte – guter, ruhiger Schlusspunkt für die Runde.",
      q:"Armazém Regimental Lagos Cultural Centre, Portugal"},
+    {n:2, tag:"Alltag & Fischerei", title:"Mercado Municipal (Viv'o Mercado)", dur:"~15 Min", today:true,
+     blurb:"Die Markthalle, in der Lagos bis heute lebt: frisch gefangener Fisch, Muscheln aus der Ria de Alvor. Hier schmeckt man, warum die Stadt seit Jahrhunderten vom Meer lebt.",
+     todayNote:"Heute läuft im Markt eine kleine Musik-Animation (Viv'o Mercado) – einfach reinhören, wenn gerade etwas spielt.",
+     moreInfo:"Die Markthalle, in der Lagos bis heute vom Meer lebt: frischer Fisch, Muscheln aus der Ria de Alvor. Aktuell läuft dort teils eine kleine Musik-Animation (Viv'o Mercado).",
+     q:"Mercado Municipal de Lagos, Portugal"},
+    {n:3, tag:"Street Art", title:"Centro Ciência Viva de Lagos", dur:"~10 Min",
+     blurb:"Ein altes Markthaus, dessen Fassade heute komplett mit Straßenkunst bedeckt ist – Symbol für das neue Lagos aus Kaffeeröstereien, Weinbars und Ateliers, das sich über die Altstadt der Karavellen-Ära gelegt hat.",
+     moreInfo:"Fasst mehrere Punkte zusammen: Centro Ciência Viva (street-art-bedeckte Fassade), Praça Luís de Camões (benannt nach Portugals Nationaldichter) und den Torbogen Arco de São Gonçalo zur einstigen Gouverneursburg.",
+     q:"Centro Ciência Viva de Lagos, Portugal"},
+    {n:4, tag:"Literatur", title:"Praça Luís de Camões", dur:"~5 Min",
+     blurb:"Platz für Portugals Nationaldichter, der mit „Os Lusíadas“ das Epos über genau diese Entdeckungsfahrten schrieb. Das grün gekachelte Haus am Platz ist eines der schönsten Fotomotive der Altstadt.",
+     q:"Praça Luís de Camões, Lagos, Portugal"},
+    {n:5, tag:"Entdeckerplatz", title:"Praça Gil Eanes", dur:"~5 Min",
+     blurb:"Benannt nach dem Seefahrer, der 1434 als erster Europäer das gefürchtete Kap Bojador umsegelte – bis dahin galt es als Rand der bekannten Welt. Zentraler, lebendiger Platz der Altstadt.",
+     moreInfo:"Die Statue von König Dom Sebastião stammt von 1973, Bildhauer João Cutileiro – ein bewusster Bruch mit klassischen Königsdenkmälern (fragmentierte Marmorblöcke, der Sockel dient als Sitzbank). Sebastião brach 1578 von Lagos aus zum Kreuzzug nach Marokko auf, fiel in der Schlacht von Alcácer Quibir – Auslöser der Iberischen Union und des bis heute nachwirkenden Sebastianismo-Mythos. Gil Eanes selbst umsegelte 1434 als erster Europäer das gefürchtete Kap Bojador.",
+     q:"Praça Gil Eanes, Lagos, Portugal"},
+    {n:6, tag:"Zeitalter der Entdeckungen", title:"Karavelle „Boa Esperança“ (Marina)", dur:"~10 Min",
+     blurb:"1415 stach von hier eine Flotte aus, um Ceuta zu erobern – der Moment, in dem Lagos in die große Geschichte eintrat. Der Nachbau zeigt, wie klein und fragil die Schiffe waren, mit denen Portugal halb Afrikas Küste kartierte.",
+     q:"Marina de Lagos, Lagos, Portugal"},
+    {n:7, tag:"Hafenblick", title:"Forte da Ponta da Bandeira", dur:"~15 Min",
+     blurb:"Festung mit Zugbrücke direkt an der Hafeneinfahrt. Die kleine Dachterrasse blickt auf Meia Praia und den Atlantik – kurzes Innehalten, bevor es an der Marina entlang weitergeht.",
+     moreInfo:"Festung mit Zugbrücke direkt an der Hafeneinfahrt. Die kleine Dachterrasse blickt auf Meia Praia und den Atlantik.",
+     q:"Forte da Ponta da Bandeira, Lagos, Portugal"},
+    {n:8, tag:"Festungstor", title:"Arco de São Gonçalo", dur:"~5 Min",
+     blurb:"Turmflankierter Torbogen der einstigen Gouverneursburg – der Übergang von der Altstadt zum Hafen, durch den man buchstäblich in die maritime Geschichte von Lagos hineinläuft.",
+     q:"Arco de São Gonçalo, Lagos, Portugal"},
+    {n:9, tag:"★ Muss man gesehen haben", title:"Antigo Mercado de Escravos", dur:"~15–20 Min", highlight:true,
+     blurb:"Direkt am selben Platz: mutmaßlich Europas erster Sklavenmarkt, eröffnet 1444. Das kleine zweistöckige Museum zeigt die andere Seite der „Entdeckungen“ unbeschönigt – 2009 wurden unter einer nahen Deponie über 150 Skelette versklavter Menschen gefunden.",
+     read:"Die Infobox „Europe's First Slave Market“ (S. 196) fasst die Fakten im Original knapp, aber sehr konkret zusammen.",
+     moreInfo:"Mutmaßlich Europas erster Sklavenmarkt, eröffnet 1444. 2009 wurden unter einer nahen Deponie über 150 Skelette versklavter Menschen gefunden.",
+     q:"Antigo Mercado de Escravos, Lagos, Portugal"},
+    {n:10, tag:"★ Herzstück von Lagos", title:"Praça do Infante Dom Henrique", dur:"~5 Min", highlight:true,
+     blurb:"Die Statue Heinrich des Seefahrers steht genau dort, wo Portugals „Zeitalter der Entdeckungen“ seinen Ausgang nahm – von hier organisierte er Expeditionen entlang Afrikas Küste, die die Welt verändern sollten.",
+     read:"Der Eröffnungsabsatz des Lagos-Kapitels (S. 194, „When a naval fleet set sail to conquer Ceuta in 1415…“) erzählt diese Geschichte im Original sehr eindrücklich in wenigen Zeilen.",
+     moreInfo:"Herzstück von Lagos: Die Statue Heinrich des Seefahrers steht dort, wo Portugals Zeitalter der Entdeckungen seinen Ausgang nahm – von hier organisierte er Expeditionen entlang Afrikas Küste.",
+     q:"Praça do Infante Dom Henrique, Lagos, Portugal"},
+    {n:11, tag:"Barock & Archäologie", title:"Igreja de Santo António & Museu de Lagos", dur:"~20 Min",
+     blurb:"Von außen unscheinbar, innen eine Explosion aus vergoldetem Schnitzwerk, Azulejos und einer Trompe-l'œil-Deckenmalerei aus dem 18. Jahrhundert. Das angeschlossene Museum spannt den Bogen von römischen Funden bis zur religiösen Kunst.",
+     moreInfo:"Innen eine Explosion aus vergoldetem Schnitzwerk, Azulejos und einer Trompe-l'œil-Deckenmalerei aus dem 18. Jahrhundert. Das angeschlossene Museum spannt den Bogen von römischen Funden bis zur religiösen Kunst.",
+     q:"Igreja de Santo António, Lagos, Portugal"},
+    {n:12, tag:"Start", title:"Dot Coffee", dur:"jetzt",
+     blurb:"Rua Prof. Luís de Azevedo 2 &mdash; mitten in der Altstadt, zwei Minuten von der Kirche Santo António entfernt. Kaffee austrinken, dann geht's direkt los.",
+     moreInfo:"Rua Prof. Luís de Azevedo 2, mitten in der Altstadt, keine 2 Gehminuten von der Igreja de Santo António entfernt.",
+     q:"Dot Coffee, Rua Prof. Luís de Azevedo, Lagos, Portugal"},
   ];
 
   const enc = s => encodeURIComponent(s);
@@ -251,11 +272,13 @@
         ${s.todayNote? `<div class="todaybox">📅 <b>Heute:</b> ${s.todayNote}</div>` : ''}
         <div class="rowbtns">
           <a class="maplink" href="${pinUrl(s.q)}" target="_blank" rel="noopener">${pinIcon} Auf Karte öffnen</a>
+          ${s.moreInfo? `<button class="morebtn" type="button" aria-expanded="false"><span>Mehr erfahren</span></button>` : ''}
           <label class="check">
             <input type="checkbox" ${visited[s.n]?'checked':''} data-n="${s.n}">
             erledigt
           </label>
         </div>
+        ${s.moreInfo? `<div class="moreinfo">${s.moreInfo}</div>` : ''}
       </div>
     `;
     container.appendChild(el);
@@ -269,6 +292,16 @@
       saveVisited();
       updateProgress();
     }
+  });
+
+  container.addEventListener('click', e=>{
+    const btn = e.target.closest('.morebtn');
+    if(!btn) return;
+    const box = btn.closest('.stopbody').querySelector('.moreinfo');
+    if(!box) return;
+    const open = box.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open? 'true':'false');
+    btn.querySelector('span').textContent = open? 'Weniger anzeigen':'Mehr erfahren';
   });
 
   updateProgress();
