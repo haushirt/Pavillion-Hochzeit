@@ -5,12 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lagos zu Fuß</title>
 <meta name="description" content="Heutiger 2,5-Std-Rundgang ab Dot Coffee: Sklavenmarkt, Statue und Street-Art-Altstadt in Lagos.">
-<meta name="theme-color" content="#f7f1e4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#10171d" media="(prefers-color-scheme: dark)">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Lagos">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231d6f8c'/%3E%3Cpath d='M50 20c-11 0-20 9-20 20 0 15 20 40 20 40s20-25 20-40c0-11-9-20-20-20zm0 27a7 7 0 110-14 7 7 0 010 14z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -85,339 +79,199 @@
   .num{
     flex:none;width:34px;height:34px;border-radius:50%;background:var(--surface-2);color:var(--ink);
     display:flex;align-items:center;justify-content:center;font-family:'Fraunces';font-weight:600;font-size:15px;
-    border:1px solid var(--line);transition:background .2s ease,color .2s ease;
+    border:1px solid var(--line);
   }
-  .stop.done .num{background:var(--accent);color:var(--accent-ink);border-color:transparent}
-  .stop.done .num::after{content:'✓';font-family:'Inter';font-size:15px}
-  .stop.done .num span{display:none}
-  .body{flex:1;min-width:0}
-  .stop h2{font-size:17px;line-height:1.25;margin:2px 0 4px;font-weight:600}
-  .stop .when{
-    font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;margin-bottom:8px;
-    font-variant-numeric:tabular-nums;
+  .stop.highlight .num{background:var(--highlight);color:#241a05;border-color:transparent}
+  .stop.today .num{background:var(--today);color:#0d1f0e;border-color:transparent}
+  .stopbody{flex:1;min-width:0}
+  .stophead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .tagrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+  .tag{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+  .stop.highlight .tag{color:var(--accent-2)}
+  .badge-today{
+    font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--today);color:#0d1f0e;padding:2px 7px;border-radius:99px;
   }
-  .stop .when b{color:var(--ink);font-weight:600}
-  .stop p{font-size:14px;line-height:1.52;margin:0 0 9px;color:var(--ink)}
-  .tip{
-    font-size:12.5px;line-height:1.5;color:var(--muted);background:var(--surface-2);
-    border-radius:9px;padding:8px 10px;margin:0 0 10px;
+  .dur{font-size:11.5px;color:var(--muted);font-weight:600;white-space:nowrap;padding-top:2px}
+  h3{font-size:17px;margin:0 0 6px;font-weight:600;font-family:'Fraunces';line-height:1.2}
+  p.blurb{margin:0 0 10px;font-size:14.5px;line-height:1.5;color:var(--ink)}
+  .readbox{
+    background:var(--surface-2);border-left:3px solid var(--accent-2);border-radius:6px;
+    padding:8px 10px;font-size:12.5px;line-height:1.5;color:var(--muted);margin:0 0 10px;
   }
-  .tip b{color:var(--ink)}
-  .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-  .tag{
-    font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
-    padding:3px 7px;border-radius:6px;background:var(--surface-2);color:var(--muted);
+  .readbox b{color:var(--ink)}
+  .todaybox{
+    background:var(--surface-2);border-left:3px solid var(--today);border-radius:6px;
+    padding:8px 10px;font-size:12.5px;line-height:1.5;color:var(--muted);margin:0 0 10px;
   }
-  .tag.hl{background:color-mix(in srgb, var(--highlight) 20%, transparent);color:var(--highlight)}
-  .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .link{
+  .todaybox b{color:var(--ink)}
+  .rowbtns{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .maplink{
     font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:none;
-    display:inline-flex;align-items:center;gap:4px;
+    display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;
   }
-  .link svg{width:12px;height:12px}
-  .toggle{
-    font-family:'Inter';font-size:12.5px;font-weight:600;cursor:pointer;
-    background:transparent;border:1px solid var(--line);color:var(--muted);
-    padding:6px 11px;border-radius:8px;margin-left:auto;
+  .maplink svg{width:13px;height:13px}
+  .check{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer;user-select:none}
+  .check input{width:16px;height:16px;accent-color:var(--accent)}
+  .bonus{
+    margin-top:26px;background:var(--surface);border:1px dashed var(--line);
+    border-radius:14px;padding:16px;font-size:13.5px;color:var(--muted);line-height:1.55;
   }
-  .stop.done .toggle{border-color:var(--accent);color:var(--accent)}
-  .walk{
-    display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);
-    padding:2px 0 2px 17px;position:relative;
-  }
-  .walk::before{
-    content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;
-    background:repeating-linear-gradient(to bottom,var(--line) 0 4px,transparent 4px 8px);
-  }
-  .walk span{padding-left:14px}
-  footer{
-    margin-top:28px;padding-top:18px;border-top:1px solid var(--line);
-    font-size:12.5px;color:var(--muted);line-height:1.6;
-  }
-  footer b{color:var(--ink)}
-  .reset{
-    font-family:'Inter';font-size:12px;font-weight:600;cursor:pointer;margin-top:12px;
-    background:transparent;border:1px solid var(--line);color:var(--muted);padding:7px 12px;border-radius:8px;
-  }
-  @media (prefers-reduced-motion: reduce){*{transition:none !important}}
+  .bonus b{color:var(--ink)}
+  .bonus h2{font-size:16px;margin:0 0 8px;color:var(--ink)}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:26px}
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <header class="top">
-    <div class="eyebrow">Algarve · Heute</div>
-    <h1>Lagos zu Fuß</h1>
-    <p class="meta"><b>2,5 Std</b> · ca. <b>2,6 km</b> · <b>9 Stationen</b> · Start: Dot Coffee</p>
+    <div class="eyebrow">Heute · Ab Dot Coffee</div>
+    <h1>Deine nächsten 2,5 Stunden</h1>
+    <p class="meta">12 Stationen · <b>~2,5&nbsp;Std.</b> · Start Rua Prof. Luís de Azevedo (Dot Coffee) &rarr; Ende Armazém Regimental. Route in zwei Etappen, je zu Fuß in Google&nbsp;Maps.</p>
     <div class="routebar">
-      <a class="btn btn-primary" id="routeLink" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 1114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        Route in Maps
+      <a class="btn btn-primary" id="leg1" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Etappe 1 (2–6)
       </a>
-      <button class="btn" id="themeBtn" style="border-color:var(--line);color:var(--muted);background:transparent;cursor:pointer">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
-        Ansicht
-      </button>
+      <a class="btn btn-primary" id="leg2" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Etappe 2 (6–12)
+      </a>
     </div>
-    <div class="progress"><i id="bar"></i></div>
-    <div class="progress-label" id="barLabel">0 von 9 Stationen</div>
+    <div class="progress"><i id="progressBar"></i></div>
+    <div class="progress-label" id="progressLabel">0 von 12 erledigt</div>
   </header>
 
   <div class="intro-note">
-    <b>So funktioniert's:</b> Tippe „Erledigt", wenn du eine Station abgehakt hast — der Fortschritt bleibt
-    auf diesem Gerät gespeichert. Die grün umrandete Karte ist deine nächste Station.
-    Gehzeiten sind gemütliche Schritte, ohne Pausen gerechnet.
+    Du bist praktisch schon mittendrin: Dot Coffee liegt direkt neben Igreja de Santo António &mdash; die historischen Kern-Stationen kommen daher zuerst, danach der Bogen über Marina und Street-Art-Altstadt. Zwei Stellen mit <b style="color:var(--today)">HEUTE</b>-Markierung laufen nur an diesem Tag.
   </div>
 
   <div class="stops" id="stops"></div>
 
-  <footer>
-    <b>Gut zu wissen:</b> Die Altstadt ist durchgehend Kopfsteinpflaster — feste Sohlen lohnen sich.
-    Vormittags liegt die Gasse zwischen Praça Gil Eanes und dem Sklavenmarkt im Schatten,
-    ab ca. 13 Uhr wird es auf den Plätzen ungemütlich heiß.
-    Museen in Lagos haben montags meist geschlossen; Öffnungszeiten und Eintritt bitte vor Ort prüfen.
-    <br><br>
-    <button class="reset" id="resetBtn">Fortschritt zurücksetzen</button>
-  </footer>
+  <div class="bonus">
+    <h2>Falls doch mehr Zeit bleibt</h2>
+    <b>Igreja de São Sebastião</b> liegt nur 2 Minuten von Praça Gil Eanes entfernt &mdash; kurzer Zwischenstopp, falls die Zeit reicht. <br><br>
+    <b>Ponta da Piedade</b> (Klippen &amp; Grotten) ist zu weit für heute &mdash; das ist ein eigener Nachmittag, zu Fuß, per Boot oder Kajak.
+  </div>
 
+  <footer>Basis: Lonely Planet Portugal, Kapitel „The Algarve – Lagos" · Heutige Termine: Centro Cultural de Lagos / Algarve-Veranstaltungskalender, Stand 22.09.2026</footer>
 </div>
 
 <script>
 (function(){
-  'use strict';
-
-  var STOPS = [
-    {
-      id:'dot',
-      name:'Dot Coffee',
-      q:'Dot Coffee Lagos Portugal',
-      time:'09:00',
-      stay:'25 Min',
-      walk:null,
-      tags:['Start','Kaffee'],
-      text:'Der Startpunkt. Kleine Spezialitätenrösterei in der Altstadt — Filterkaffee, Bica und ein ordentliches Pastel de nata. Setz dich kurz raus, trink aus und sortier die Route, bevor die Gassen voll werden.',
-      tip:'<b>Früh dran sein lohnt:</b> Vor 10 Uhr gehört die Altstadt noch den Einheimischen und den Lieferwagen.'
-    },
-    {
-      id:'gileanes',
-      name:'Praça Gil Eanes & Dom-Sebastião-Statue',
-      q:'Praça Gil Eanes Lagos Portugal',
-      time:'09:30',
-      stay:'15 Min',
-      walk:'4 Min · 300 m',
-      tags:['Statue','Platz'],
-      highlight:true,
-      text:'Der zentrale Platz der Stadt — und die wohl meistdiskutierte Statue der Algarve. João Cutileiro stellte den jungen König Dom Sebastião 1973 nicht als Helden dar, sondern als fast kindliche, schlaksige Figur in Rüstung. Viele in Lagos nennen sie bis heute schlicht „den Astronauten".',
-      tip:'<b>Kontext:</b> Sebastião verschwand 1578 in der Schlacht bei Alcácer-Quibir. Dass ein Bildhauer den Nationalmythos ausgerechnet als unfertigen Jungen zeigt, war zur Zeit der Diktatur eine Ansage.'
-    },
-    {
-      id:'mercado',
-      name:'Mercado Municipal',
-      q:'Mercado Municipal de Lagos Portugal',
-      time:'09:50',
-      stay:'20 Min',
-      walk:'3 Min · 230 m',
-      tags:['Markt','Essen'],
-      text:'Zweistöckige Markthalle direkt an der Uferstraße. Unten Fisch und Meeresfrüchte, oben Obst, Gemüse und Käse. Kein Touristen-Schaustück, sondern der Ort, an dem Lagos tatsächlich einkauft.',
-      tip:'<b>Timing:</b> Sonntags geschlossen, und der Fischstand ist gegen Mittag durch. Wer Fisch sehen will, kommt vormittags.'
-    },
-    {
-      id:'infante',
-      name:'Praça Infante Dom Henrique',
-      q:'Praça Infante Dom Henrique Lagos Portugal',
-      time:'10:15',
-      stay:'10 Min',
-      walk:'3 Min · 200 m',
-      tags:['Platz','Geschichte'],
-      text:'Der Platz am Wasser mit der sitzenden Statue von Heinrich dem Seefahrer, Blick über die Marina. Von hier aus wurden die Expeditionen finanziert und ausgerüstet, die Portugals Weg die afrikanische Küste hinunter öffneten.',
-      tip:'<b>Halt kurz inne:</b> Derselbe Platz, an dem die Statue steht, grenzt direkt an das Gebäude der nächsten Station. Diese Nachbarschaft ist kein Zufall — sie ist die ganze Geschichte in zwanzig Metern.'
-    },
-    {
-      id:'escravos',
-      name:'Mercado de Escravos',
-      q:'Mercado de Escravos Lagos Portugal',
-      time:'10:30',
-      stay:'35 Min',
-      walk:'1 Min · 30 m',
-      tags:['Museum','Schwer'],
-      highlight:true,
-      text:'Der erste Sklavenmarkt Europas. 1444 wurden hier unter den Arkaden die ersten von portugiesischen Schiffen verschleppten Menschen aus Westafrika verkauft. Heute beherbergt der Bau das Núcleo Museológico Rota da Escravatura — klein, ruhig und ohne jede Beschönigung.',
-      tip:'<b>Plane Zeit ein.</b> Der Raum ist winzig, aber man geht nicht in fünf Minuten wieder raus. Die Ausstellung zeigt auch die Funde des Gräberfelds am Vale da Gafaria, wo Verstorbene wie Abfall verscharrt wurden.'
-    },
-    {
-      id:'santoantonio',
-      name:'Igreja de Santo António & Museu Municipal',
-      q:'Igreja de Santo Antonio Lagos Portugal',
-      time:'11:10',
-      stay:'25 Min',
-      walk:'5 Min · 400 m',
-      tags:['Kirche','Barock'],
-      text:'Von außen unscheinbar weiß, innen eine der überwältigendsten Talha-dourada-Arbeiten Portugals: vergoldetes Schnitzwerk vom Boden bis zur Decke, nach dem Erdbeben von 1755 wieder aufgebaut. Der Eintritt schließt das angeschlossene Stadtmuseum mit ein.',
-      tip:'<b>Fotografieren</b> ist im Kirchenschiff meist untersagt — einfach hinsetzen und zwei Minuten schauen. Lohnt mehr als das Handy.'
-    },
-    {
-      id:'bandeira',
-      name:'Forte da Ponta da Bandeira',
-      q:'Forte da Ponta da Bandeira Lagos Portugal',
-      time:'11:40',
-      stay:'20 Min',
-      walk:'6 Min · 450 m',
-      tags:['Festung','Aussicht'],
-      text:'Kleine Sternschanze aus dem 17. Jahrhundert, über eine Zugbrücke erreichbar, direkt am Hafeneingang. Von der Mauer aus siehst du die Flussmündung, die Marina und die Bucht — der beste Rundumblick der Route ohne einen einzigen Höhenmeter.',
-      tip:'<b>Direkt daneben</b> liegt die Praia da Batata. Wenn die Füße reichen, lohnt der Abstecher zu den Felsdurchgängen am östlichen Ende des Strands.'
-    },
-    {
-      id:'streetart',
-      name:'Street-Art-Altstadt',
-      q:'Rua Candido dos Reis Lagos Portugal',
-      time:'12:05',
-      stay:'30 Min',
-      walk:'7 Min · 550 m',
-      tags:['Street Art','Gassen'],
-      highlight:true,
-      text:'Zurück ins Gassennetz zwischen Rua Cândido dos Reis, Rua da Barroca und den Querstraßen zur Stadtmauer. Hier hängen Murals, bemalte Rollläden und Azulejo-Reste dicht nebeneinander. Kein festgelegter Weg — lauf die Seitengassen ab, die interessanteren Sachen stehen selten an der Hauptachse.',
-      tip:'<b>Rollläden lohnen sich abends:</b> Viele der besten Arbeiten sind auf geschlossene Ladentüren gemalt und tagsüber schlicht nicht zu sehen.'
-    },
-    {
-      id:'muralhas',
-      name:'Stadtmauer & Ausklang',
-      q:'Muralhas de Lagos Portugal',
-      time:'12:40',
-      stay:'offen',
-      walk:'5 Min · 400 m',
-      tags:['Ziel','Mauer'],
-      text:'Entlang der erhaltenen Muralhas zurück Richtung Zentrum — die Mauer stammt in Teilen aus maurischer Zeit und wurde im 16. Jahrhundert ausgebaut. Guter Punkt, um die Runde zu schließen und in einer der Gassen mittagessen zu gehen.',
-      tip:'<b>Von hier aus:</b> Wer noch Luft hat, nimmt den Küstenweg Richtung Ponta da Piedade — rund 40 Minuten zu Fuß, und landschaftlich das Beste, was Lagos zu bieten hat.'
-    }
+  const stops = [
+    {n:1, tag:"Start", title:"Dot Coffee", dur:"jetzt",
+     blurb:"Rua Prof. Luís de Azevedo 2 &mdash; mitten in der Altstadt, zwei Minuten von der Kirche Santo António entfernt. Kaffee austrinken, dann geht's direkt los.",
+     q:"Dot Coffee, Rua Prof. Luís de Azevedo, Lagos, Portugal"},
+    {n:2, tag:"Barock & Archäologie", title:"Igreja de Santo António & Museu de Lagos", dur:"~20 Min",
+     blurb:"Von außen unscheinbar, innen eine Explosion aus vergoldetem Schnitzwerk, Azulejos und einer Trompe-l'œil-Deckenmalerei aus dem 18. Jahrhundert. Das angeschlossene Museum spannt den Bogen von römischen Funden bis zur religiösen Kunst.",
+     q:"Igreja de Santo António, Lagos, Portugal"},
+    {n:3, tag:"★ Herzstück von Lagos", title:"Praça do Infante Dom Henrique", dur:"~5 Min", highlight:true,
+     blurb:"Die Statue Heinrich des Seefahrers steht genau dort, wo Portugals „Zeitalter der Entdeckungen“ seinen Ausgang nahm – von hier organisierte er Expeditionen entlang Afrikas Küste, die die Welt verändern sollten.",
+     read:"Der Eröffnungsabsatz des Lagos-Kapitels (S. 194, „When a naval fleet set sail to conquer Ceuta in 1415…“) erzählt diese Geschichte im Original sehr eindrücklich in wenigen Zeilen.",
+     q:"Praça do Infante Dom Henrique, Lagos, Portugal"},
+    {n:4, tag:"★ Muss man gesehen haben", title:"Antigo Mercado de Escravos", dur:"~15–20 Min", highlight:true,
+     blurb:"Direkt am selben Platz: mutmaßlich Europas erster Sklavenmarkt, eröffnet 1444. Das kleine zweistöckige Museum zeigt die andere Seite der „Entdeckungen“ unbeschönigt – 2009 wurden unter einer nahen Deponie über 150 Skelette versklavter Menschen gefunden.",
+     read:"Die Infobox „Europe's First Slave Market“ (S. 196) fasst die Fakten im Original knapp, aber sehr konkret zusammen.",
+     q:"Antigo Mercado de Escravos, Lagos, Portugal"},
+    {n:5, tag:"Festungstor", title:"Arco de São Gonçalo", dur:"~5 Min",
+     blurb:"Turmflankierter Torbogen der einstigen Gouverneursburg – der Übergang von der Altstadt zum Hafen, durch den man buchstäblich in die maritime Geschichte von Lagos hineinläuft.",
+     q:"Arco de São Gonçalo, Lagos, Portugal"},
+    {n:6, tag:"Hafenblick", title:"Forte da Ponta da Bandeira", dur:"~15 Min",
+     blurb:"Festung mit Zugbrücke direkt an der Hafeneinfahrt. Die kleine Dachterrasse blickt auf Meia Praia und den Atlantik – kurzes Innehalten, bevor es an der Marina entlang weitergeht.",
+     q:"Forte da Ponta da Bandeira, Lagos, Portugal"},
+    {n:7, tag:"Zeitalter der Entdeckungen", title:"Karavelle „Boa Esperança“ (Marina)", dur:"~10 Min",
+     blurb:"1415 stach von hier eine Flotte aus, um Ceuta zu erobern – der Moment, in dem Lagos in die große Geschichte eintrat. Der Nachbau zeigt, wie klein und fragil die Schiffe waren, mit denen Portugal halb Afrikas Küste kartierte.",
+     q:"Marina de Lagos, Lagos, Portugal"},
+    {n:8, tag:"Entdeckerplatz", title:"Praça Gil Eanes", dur:"~5 Min",
+     blurb:"Benannt nach dem Seefahrer, der 1434 als erster Europäer das gefürchtete Kap Bojador umsegelte – bis dahin galt es als Rand der bekannten Welt. Zentraler, lebendiger Platz der Altstadt.",
+     q:"Praça Gil Eanes, Lagos, Portugal"},
+    {n:9, tag:"Literatur", title:"Praça Luís de Camões", dur:"~5 Min",
+     blurb:"Platz für Portugals Nationaldichter, der mit „Os Lusíadas“ das Epos über genau diese Entdeckungsfahrten schrieb. Das grün gekachelte Haus am Platz ist eines der schönsten Fotomotive der Altstadt.",
+     q:"Praça Luís de Camões, Lagos, Portugal"},
+    {n:10, tag:"Street Art", title:"Centro Ciência Viva de Lagos", dur:"~10 Min",
+     blurb:"Ein altes Markthaus, dessen Fassade heute komplett mit Straßenkunst bedeckt ist – Symbol für das neue Lagos aus Kaffeeröstereien, Weinbars und Ateliers, das sich über die Altstadt der Karavellen-Ära gelegt hat.",
+     q:"Centro Ciência Viva de Lagos, Portugal"},
+    {n:11, tag:"Alltag & Fischerei", title:"Mercado Municipal (Viv'o Mercado)", dur:"~15 Min", today:true,
+     blurb:"Die Markthalle, in der Lagos bis heute lebt: frisch gefangener Fisch, Muscheln aus der Ria de Alvor. Hier schmeckt man, warum die Stadt seit Jahrhunderten vom Meer lebt.",
+     todayNote:"Heute läuft im Markt eine kleine Musik-Animation (Viv'o Mercado) – einfach reinhören, wenn gerade etwas spielt.",
+     q:"Mercado Municipal de Lagos, Portugal"},
+    {n:12, tag:"Zeitgenössische Kunst", title:"Lagos Cultural Centre (Armazém Regimental)", dur:"~20 Min", today:true,
+     blurb:"Ein Militärlager aus dem 17. Jahrhundert, heute Bühne für Theater, Tanz und wechselnde Ausstellungen – mit einem der auffälligsten Azulejo-Wandbilder der Stadt an der Fassade.",
+     todayNote:"Heute (bis 30.9.) läuft dort die Ausstellung „Here Come the Others!“ von Nélia Duarte – guter, ruhiger Schlusspunkt für die Runde.",
+     q:"Armazém Regimental Lagos Cultural Centre, Portugal"},
   ];
 
-  var KEY = 'lagos-walk-done-v1';
-  var THEME_KEY = 'lagos-walk-theme';
+  const enc = s => encodeURIComponent(s);
+  const pinUrl = q => `https://www.google.com/maps/search/?api=1&query=${enc(q)}`;
 
-  function loadDone(){
-    try{
-      var raw = localStorage.getItem(KEY);
-      return raw ? JSON.parse(raw) : {};
-    }catch(e){ return {}; }
-  }
-  function saveDone(d){
-    try{ localStorage.setItem(KEY, JSON.stringify(d)); }catch(e){}
+  function routeUrl(originQ, destQ, waypointQs){
+    const wp = waypointQs.map(enc).join('%7C');
+    return `https://www.google.com/maps/dir/?api=1&origin=${enc(originQ)}&destination=${enc(destQ)}&waypoints=${wp}&travelmode=walking`;
   }
 
-  var done = loadDone();
+  const byN = n => stops.find(s=>s.n===n).q;
+  document.getElementById('leg1').href = routeUrl(byN(1), byN(6), [2,3,4,5].map(byN));
+  document.getElementById('leg2').href = routeUrl(byN(6), byN(12), [7,8,9,10,11].map(byN));
 
-  var ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 1114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+  const pinIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>`;
 
-  function mapUrl(q){
-    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+  let visited = {};
+  try{ visited = JSON.parse(localStorage.getItem('lagosWalkVisited2')||'{}'); }catch(e){ visited = {}; }
+
+  function saveVisited(){
+    try{ localStorage.setItem('lagosWalkVisited2', JSON.stringify(visited)); }catch(e){}
   }
 
-  var stopsEl = document.getElementById('stops');
-  var barEl = document.getElementById('bar');
-  var barLabelEl = document.getElementById('barLabel');
-
-  function render(){
-    stopsEl.innerHTML = '';
-    var firstOpen = -1;
-    for(var i=0;i<STOPS.length;i++){
-      if(!done[STOPS[i].id]){ firstOpen = i; break; }
-    }
-
-    STOPS.forEach(function(s, i){
-      if(s.walk){
-        var w = document.createElement('div');
-        w.className = 'walk';
-        w.innerHTML = '<span>' + s.walk + ' zu Fuß</span>';
-        stopsEl.appendChild(w);
-      }
-
-      var isDone = !!done[s.id];
-      var card = document.createElement('article');
-      card.className = 'stop'
-        + (isDone ? ' done' : '')
-        + (s.highlight && !isDone ? ' highlight' : '')
-        + (i === firstOpen ? ' today' : '');
-
-      var tags = (s.tags || []).map(function(t){
-        var hl = s.highlight && t === s.tags[0];
-        return '<span class="tag' + (hl ? ' hl' : '') + '">' + t + '</span>';
-      }).join('');
-
-      card.innerHTML =
-        '<div class="num"><span>' + (i+1) + '</span></div>' +
-        '<div class="body">' +
-          '<h2>' + s.name + '</h2>' +
-          '<div class="when"><b>' + s.time + '</b><span>Aufenthalt ' + s.stay + '</span></div>' +
-          '<div class="tags">' + tags + '</div>' +
-          '<p>' + s.text + '</p>' +
-          (s.tip ? '<div class="tip">' + s.tip + '</div>' : '') +
-          '<div class="actions">' +
-            '<a class="link" href="' + mapUrl(s.q) + '" target="_blank" rel="noopener">' + ICON_PIN + 'Karte</a>' +
-            '<button class="toggle" data-id="' + s.id + '">' + (isDone ? 'Erledigt ✓' : 'Erledigt') + '</button>' +
-          '</div>' +
-        '</div>';
-
-      stopsEl.appendChild(card);
-    });
-
-    var count = STOPS.filter(function(s){ return done[s.id]; }).length;
-    var pct = Math.round(count / STOPS.length * 100);
-    barEl.style.width = pct + '%';
-    barLabelEl.textContent = count + ' von ' + STOPS.length + ' Stationen'
-      + (count === STOPS.length ? ' — Runde komplett.' : '');
+  function updateProgress(){
+    const count = Object.values(visited).filter(Boolean).length;
+    document.getElementById('progressBar').style.width = (count/stops.length*100)+'%';
+    document.getElementById('progressLabel').textContent = `${count} von ${stops.length} erledigt`;
   }
 
-  stopsEl.addEventListener('click', function(e){
-    var btn = e.target.closest('.toggle');
-    if(!btn) return;
-    var id = btn.getAttribute('data-id');
-    if(done[id]){ delete done[id]; } else { done[id] = true; }
-    saveDone(done);
-    render();
+  const container = document.getElementById('stops');
+  stops.forEach(s=>{
+    const el = document.createElement('div');
+    el.className = 'stop' + (s.highlight? ' highlight':'') + (s.today? ' today':'') + (visited[s.n]? ' done':'');
+    el.innerHTML = `
+      <div class="num">${s.n}</div>
+      <div class="stopbody">
+        <div class="stophead">
+          <div>
+            <div class="tagrow">
+              <span class="tag">${s.tag}</span>
+              ${s.today? '<span class="badge-today">Heute</span>' : ''}
+            </div>
+            <h3>${s.title}</h3>
+          </div>
+          <div class="dur">${s.dur}</div>
+        </div>
+        <p class="blurb">${s.blurb}</p>
+        ${s.read? `<div class="readbox">📖 <b>Lies das im Buch:</b> ${s.read}</div>` : ''}
+        ${s.todayNote? `<div class="todaybox">📅 <b>Heute:</b> ${s.todayNote}</div>` : ''}
+        <div class="rowbtns">
+          <a class="maplink" href="${pinUrl(s.q)}" target="_blank" rel="noopener">${pinIcon} Auf Karte öffnen</a>
+          <label class="check">
+            <input type="checkbox" ${visited[s.n]?'checked':''} data-n="${s.n}">
+            erledigt
+          </label>
+        </div>
+      </div>
+    `;
+    container.appendChild(el);
   });
 
-  document.getElementById('resetBtn').addEventListener('click', function(){
-    done = {};
-    saveDone(done);
-    render();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  container.addEventListener('change', e=>{
+    if(e.target.matches('input[type="checkbox"]')){
+      const n = e.target.getAttribute('data-n');
+      visited[n] = e.target.checked;
+      e.target.closest('.stop').classList.toggle('done', e.target.checked);
+      saveVisited();
+      updateProgress();
+    }
   });
 
-  // Gesamtroute in Google Maps: Start, Wegpunkte, Ziel
-  (function(){
-    var first = STOPS[0].q;
-    var last = STOPS[STOPS.length - 1].q;
-    var mid = STOPS.slice(1, -1).map(function(s){ return s.q; }).join('|');
-    document.getElementById('routeLink').href =
-      'https://www.google.com/maps/dir/?api=1'
-      + '&origin=' + encodeURIComponent(first)
-      + '&destination=' + encodeURIComponent(last)
-      + '&waypoints=' + encodeURIComponent(mid)
-      + '&travelmode=walking';
-  })();
-
-  // Ansicht: Auto -> Hell -> Dunkel
-  (function(){
-    var btn = document.getElementById('themeBtn');
-    var saved;
-    try{ saved = localStorage.getItem(THEME_KEY); }catch(e){}
-    if(saved === 'light' || saved === 'dark'){
-      document.documentElement.setAttribute('data-theme', saved);
-    }
-    btn.addEventListener('click', function(){
-      var cur = document.documentElement.getAttribute('data-theme');
-      var next = cur === 'light' ? 'dark' : (cur === 'dark' ? null : 'light');
-      if(next){
-        document.documentElement.setAttribute('data-theme', next);
-        try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
-      }else{
-        document.documentElement.removeAttribute('data-theme');
-        try{ localStorage.removeItem(THEME_KEY); }catch(e){}
-      }
-    });
-  })();
-
-  render();
+  updateProgress();
 })();
 </script>
 </body>
