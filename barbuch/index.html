@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Barbuch">
+<meta name="theme-color" content="#0c1312">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Barbuch Haus Hirt</title>
+<style>
+/* Layout: Querformat-Split – oben eine Leiste A–Z bzw. Kartenrubriken, links Namenskacheln, rechts das Rezept. Hochformat: Rezept als Vollbild. */
+:root{
+  --bg:#0c1312; --surface:#172221; --surface2:#20302e; --line:#2c3e3c;
+  --fg:#f3f6f5; --muted:#9fb1ae; --accent:#5fd0c4; --on-accent:#06201d;
+  --gar:#3a2c14; --gar-fg:#ffd58a; --warn:#ffcf70;
+  --f:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{height:100%;box-sizing:border-box}
+body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:var(--f);font-size:16px;
+  display:flex;flex-direction:column;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;
+  padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.strip{display:flex;gap:4px;padding-block:8px;flex:none;flex-wrap:wrap}
+.strip button{flex:1 0 auto;min-width:30px;height:40px;border:1px solid var(--line);background:var(--surface);border-radius:8px;font-weight:700;font-size:16px;padding:0 6px}
+.strip button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.strip .mode{background:var(--surface2);font-size:14px;padding:0 10px}
+.strip .rec{font-size:14px;padding:0 10px}
+
+.main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding-bottom:8px}
+.tiles{overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:6px;align-content:start;-webkit-overflow-scrolling:touch}
+.gh{grid-column:1/-1;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 2px 0}
+.gh:first-child{padding-top:0}
+.tile{min-height:50px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 10px;text-align:left;font-weight:600;font-size:16px;line-height:1.15;display:flex;align-items:center;gap:6px}
+.tile[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--warn);flex:none;margin-left:auto}
+
+.pane{overflow-y:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;-webkit-overflow-scrolling:touch}
+.hint{color:var(--muted);height:100%;display:grid;place-items:center;text-align:center;font-size:15px;line-height:1.5}
+.ph{display:flex;align-items:baseline;gap:10px}
+.ph h2{margin:0;font-size:24px;line-height:1.1;flex:1}
+.ph span{color:var(--muted);font-variant-numeric:tabular-nums}
+.top{display:flex;gap:12px;align-items:center;margin-top:8px}
+.top svg{width:34px;height:48px;flex:none;color:var(--accent)}
+.facts{display:grid;gap:2px;font-size:15px}
+.facts b{font-weight:700}
+.facts i{font-style:normal;color:var(--muted);display:inline-block;width:62px}
+.gar{margin-top:10px;background:var(--gar);color:var(--gar-fg);border-radius:8px;padding:8px 10px;font-size:16px;font-weight:700}
+.gar small{font-weight:600;opacity:.8;margin-right:6px}
+.ih{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scale{display:flex;gap:4px}
+.scale button{border:1px solid var(--line);background:var(--surface2);border-radius:6px;padding:4px 10px;font-weight:700;font-size:14px}
+.scale button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+table{width:100%;border-collapse:collapse;margin-top:4px}
+td{padding:7px 0;border-bottom:1px solid var(--line);font-size:17px;vertical-align:baseline}
+td.a{width:84px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.a small{font-weight:600;font-size:13px;color:var(--muted);margin-left:2px}
+ol{margin:6px 0 0;padding-left:20px;display:grid;gap:5px;font-size:15px;line-height:1.35}
+.note{margin-top:10px;color:var(--warn);font-size:14px;line-height:1.35}
+.tip{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.35}
+.close{display:none}
+
+@media (orientation:portrait){
+  .main{grid-template-columns:1fr}
+  .pane{display:none}
+  .pane.open{display:block;position:fixed;inset:0;z-index:10;border-radius:0;border:0;
+    padding:calc(12px + env(safe-area-inset-top,0px)) 16px calc(84px + env(safe-area-inset-bottom,0px))}
+  .pane.open .close{display:block;position:fixed;left:16px;right:16px;bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    height:54px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:17px}
+  .ph h2{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+
+<div class="strip" id="strip"></div>
+<div class="main">
+  <div class="tiles" id="tiles"></div>
+  <div class="pane" id="pane"></div>
+</div>
+
+<script>
+const GLASS={
+ tumbler:['Tumbler','<path d="M7 14 L9 52 H31 L33 14 Z"/><path d="M8.2 30 H31.8" opacity=".45"/>'],
+ highball:['Highball','<path d="M10 4 L11.5 53 H28.5 L30 4 Z"/><path d="M10.6 22 H29.4" opacity=".45"/>'],
+ coupe:['Coupette (gekühlt)','<path d="M4 10 Q4 27 20 27 Q36 27 36 10 Z"/><path d="M20 27 V50 M11 52 H29"/>'],
+ martini:['Martiniglas (gekühlt)','<path d="M3 8 L20 29 L37 8 Z"/><path d="M20 29 V50 M11 52 H29"/>'],
+ wine:['Weinglas','<path d="M9 4 Q7 26 20 29 Q33 26 31 4 Z"/><path d="M20 29 V50 M11 52 H29"/><path d="M8.4 14 H31.6" opacity=".45"/>'],
+ copa:['Copa / Ballonglas','<path d="M5 6 Q3 32 20 33 Q37 32 35 6 Z"/><path d="M20 33 V50 M11 52 H29"/>'],
+ mug:['Kupferbecher (sonst Highball)','<path d="M7 12 L8.5 52 H29.5 L31 12 Z"/><path d="M31 20 Q38 20 38 29 Q38 38 30 38"/>'],
+};
+const svg=g=>`<svg viewBox="0 0 40 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${GLASS[g][1]}</svg>`;
+
+const CATS=[['ape','Aperitif'],['whi','Whiskey'],['vod','Vodka'],['gin','Gin'],['rum','Rum & Tequila'],['sour','Sours'],['mule','Mules'],['gt','Gin & Tonic'],['af','Alkoholfrei']];
+
+const SOUR=(spirit,lem=3,sug=2)=>[[5,'cl',spirit],[lem,'cl','Zitronensaft'],[sug,'cl','Zuckersirup'],[2,'cl','Eiweiß'],[3,'Tropfen','Angostura (auf den Schaum)']];
+const SOUR_S=['Alles außer Angostura ohne Eis kräftig schütteln (Dry Shake)','Eis dazu, nochmal 10 Sek. hart schütteln','Auf frisches Eis abseihen','Angostura-Tropfen auf den Schaum'];
+const MULE_S=['Becher mit Eis füllen','Spirituose und Limette dazu','Mit Ginger Beer auffüllen, kurz rühren'];
+const GT_S=['Copa bis oben mit Eis, kurz rühren, Schmelzwasser abgießen','Gin und Garnitur ins Glas','Tonic am Barlöffel entlang eingießen, 1× sanft rühren'];
+const GT_N='Tonic-Auswahl ist auf der Karte noch offen („???“).';
+const gt=(n,p,gar,chk)=>({n,c:'gt',p,g:'copa',ice:'viel Eiswürfel',m:'Gebaut',i:[[4,'cl',n],[20,'cl','Tonic (1 Flasche)']],gar,s:GT_S,note:GT_N,chk});
+
+const D=[
+ {n:'Aperol Spritz',c:'ape',p:'9,50',d:'Aperol, Prosecco, Soda',g:'wine',ice:'Eiswürfel',m:'Gebaut',i:[[9,'cl','Prosecco'],[6,'cl','Aperol'],[3,'cl','Soda']],gar:'Orangenscheibe',s:['Weinglas voll mit Eis','Prosecco, dann Aperol','Mit Soda toppen, einmal rühren']},
+ {n:'Campari Spritz',c:'ape',p:'9,50',d:'Campari, Prosecco, Soda',g:'wine',ice:'Eiswürfel',m:'Gebaut',i:[[9,'cl','Prosecco'],[6,'cl','Campari'],[3,'cl','Soda']],gar:'Orangenscheibe',s:['Weinglas voll mit Eis','Prosecco, dann Campari','Mit Soda toppen, einmal rühren']},
+ {n:'Sarti Spritz',c:'ape',p:'9,50',d:'laut Karte: Aperol, Prosecco, Soda',g:'wine',ice:'Eiswürfel',m:'Gebaut',i:[[9,'cl','Prosecco'],[6,'cl','Sarti Rosa'],[3,'cl','Soda']],gar:'Zitronen- oder Grapefruitscheibe',s:['Weinglas voll mit Eis','Prosecco, dann Sarti','Mit Soda toppen, einmal rühren'],chk:1,note:'Die Karte nennt „Aperol“ – vermutlich Druckfehler. Likör und Garnitur im Haus bestätigen.'},
+ {n:'Hugo',c:'ape',p:'8,50',d:'Holunder, Minze, Prosecco, Zitronenlimonade',g:'wine',ice:'Eiswürfel',m:'Gebaut',i:[[2,'cl','Holunderblütensirup'],[6,'Blätter','Minze'],[10,'cl','Prosecco'],[4,'cl','Zitronenlimonade']],gar:'Minzzweig, Limettenscheibe',s:['Minze im Glas leicht andrücken','Eis, Sirup, Prosecco','Mit Limonade toppen, kurz rühren']},
+ {n:'Lillet Wild Berry',c:'ape',p:'9,50',d:'Lillet, Schweppes Wild Berry, Prosecco, Wildbeeren',g:'wine',ice:'Eiswürfel',m:'Gebaut',i:[[5,'cl','Lillet Blanc'],[8,'cl','Schweppes Wild Berry'],[4,'cl','Prosecco']],gar:'Frische Beeren, Minzzweig',s:['Weinglas voll mit Eis','Lillet, dann Wild Berry','Mit Prosecco toppen, kurz rühren'],chk:1,note:'Prosecco-Anteil ist Hauszusatz – Mengen bestätigen.'},
+ {n:'Negroni',c:'ape',p:'12,50',d:'Campari, Tanqueray Gin, Vermouth Rosso',g:'tumbler',ice:'großer Eiswürfel',m:'Gerührt',i:[[3,'cl','Campari'],[3,'cl','Tanqueray Gin'],[3,'cl','Vermouth Rosso']],gar:'Orangenzeste',s:['Alles im Rührglas mit Eis 20–30 Sek. rühren','Auf großen Eiswürfel abseihen','Zeste über dem Glas ausdrücken und hineinlegen']},
+ {n:'Vermouth & Tonic',c:'ape',p:'10,50',d:'Vermouth nach Wahl, Fever-Tree Indian Tonic, Zitrone',g:'wine',ice:'Eiswürfel',m:'Gebaut',i:[[5,'cl','Vermouth nach Wahl'],[15,'cl','Fever-Tree Indian Tonic']],gar:'Zitronenscheibe',s:['Weinglas voll mit Eis','Vermouth, dann Tonic','Einmal sanft rühren']},
+
+ {n:'Old Fashioned',c:'whi',p:'11,00',d:'gereifter Whiskey, Zucker & Angostura',g:'tumbler',ice:'großer Eiswürfel',m:'Gerührt',i:[[6,'cl','Bourbon / Whiskey'],[1,'cl','Zuckersirup'],[3,'Dash','Angostura']],gar:'Orangenzeste (+ Cocktailkirsche)',s:['Alles im Rührglas mit Eis 30 Sek. rühren','Auf großen Eiswürfel abseihen','Orangenzeste ausdrücken, ins Glas']},
+ {n:'Penicillin',c:'whi',p:'13,50',d:'Whiskey, Zitrone, Ingwer- & Honigsirup',g:'tumbler',ice:'Eiswürfel',m:'Shaken',i:[[5,'cl','Blended Scotch'],[2.5,'cl','Zitronensaft'],[2,'cl','Ingwer-Honig-Sirup']],gar:'Kandierter Ingwer',s:['Alles mit Eis 10 Sek. schütteln','Auf frisches Eis abseihen'],tip:'Klassisch mit 0,5 cl Islay-Whisky als Float obenauf – steht nicht auf der Karte.'},
+ {n:'Manhattan',c:'whi',p:'13,50',d:'Whiskey, roter Vermouth & Angostura',g:'coupe',ice:'ohne',m:'Gerührt',i:[[5,'cl','Rye / Bourbon'],[2.5,'cl','Vermouth Rosso'],[2,'Dash','Angostura']],gar:'Cocktailkirsche',s:['Glas vorkühlen','Alles im Rührglas mit Eis 30 Sek. rühren','In die Coupette abseihen, Kirsche dazu']},
+ {n:'Godfather',c:'whi',p:'13,50',d:'Scotch & Amaretto',g:'tumbler',ice:'großer Eiswürfel',m:'Gebaut',i:[[3.5,'cl','Scotch'],[3.5,'cl','Amaretto']],gar:'keine (optional Orangenzeste)',s:['Großen Eiswürfel ins Glas','Scotch und Amaretto dazu','10 Sek. rühren']},
+
+ {n:'Espresso Martini',c:'vod',p:'13,50',d:'Vodka, Kaffeelikör, Espresso & Zucker',g:'martini',ice:'ohne',m:'Shaken (hart)',i:[[4,'cl','Vodka'],[3,'cl','Kaffeelikör'],[3,'cl','Espresso, frisch'],[1,'cl','Zuckersirup']],gar:'3 Kaffeebohnen',s:['Glas vorkühlen, Espresso frisch ziehen','Alles mit viel Eis 15 Sek. hart schütteln','Doppelt abseihen, Bohnen auf den Schaum']},
+ {n:'Cosmopolitan',c:'vod',p:'13,50',d:'Vodka, Triple Sec, Cranberry & Limette',g:'martini',ice:'ohne',m:'Shaken',i:[[4,'cl','Vodka'],[1.5,'cl','Triple Sec'],[1.5,'cl','Limettensaft'],[3,'cl','Cranberrysaft']],gar:'Orangenzeste',s:['Glas vorkühlen','Alles mit Eis 10 Sek. schütteln','Doppelt abseihen, Zeste ausdrücken']},
+ {n:'White Russian',c:'vod',p:'13,50',d:'Vodka, Kaffeelikör, Milch & Sahne',g:'tumbler',ice:'Eiswürfel',m:'Gebaut',i:[[5,'cl','Vodka'],[2,'cl','Kaffeelikör'],[1.5,'cl','Milch'],[1.5,'cl','Sahne']],gar:'keine',s:['Tumbler mit Eis','Vodka und Kaffeelikör dazu, kurz rühren','Milch und Sahne verrühren, langsam als Haube darüber gießen']},
+ {n:'Pornstar Martini',c:'vod',p:'14,50',d:'Vodka, Passionsfrucht, Limette, Vanille & Glas Prosecco',g:'coupe',ice:'ohne',m:'Shaken',i:[[4,'cl','Vodka'],[1.5,'cl','Passionsfruchtlikör'],[3,'cl','Passionsfruchtpüree'],[1.5,'cl','Limettensaft'],[1,'cl','Vanillesirup'],[6,'cl','Prosecco (separat)']],gar:'Halbe Passionsfrucht',s:['Glas vorkühlen','Alles außer Prosecco mit Eis schütteln','Doppelt abseihen, Passionsfrucht obenauf','Prosecco im Shotglas daneben servieren']},
+
+ {n:'Gin Basil Smash',c:'gin',p:'13,50',d:'Basilikum, Gin, Zitrone & Zucker',g:'tumbler',ice:'Eiswürfel',m:'Muddeln + Shaken',i:[[6,'cl','Gin'],[3,'cl','Zitronensaft'],[2,'cl','Zuckersirup'],[1,'Handvoll','Basilikum']],gar:'Basilikumzweig',s:['Basilikum im Shaker mit Zitrone andrücken','Gin, Sirup, Eis dazu – 10 Sek. hart schütteln','Doppelt auf frisches Eis abseihen']},
+ {n:'Connie Hash',c:'gin',p:'13,50',d:'Gin, Zitrone, Mango, Minze & Eiweiß',g:'coupe',ice:'ohne',m:'Dry + Wet Shake',i:[[5,'cl','Gin'],[2.5,'cl','Zitronensaft'],[2,'cl','Mangopüree'],[1,'cl','Zuckersirup'],[6,'Blätter','Minze'],[2,'cl','Eiweiß']],gar:'Minzblatt',s:['Alles ohne Eis kräftig schütteln','Eis dazu, nochmal hart schütteln','Doppelt in die gekühlte Coupette abseihen'],chk:1,note:'Hausrezept – Mengen sind ein Vorschlag. Mit der Bar bestätigen.'},
+ {n:'Southside',c:'gin',p:'13,50',d:'Gin, Minze, Limette & Zucker',g:'coupe',ice:'ohne',m:'Shaken',i:[[5,'cl','Gin'],[2.5,'cl','Limettensaft'],[2,'cl','Zuckersirup'],[8,'Blätter','Minze']],gar:'Minzblatt',s:['Glas vorkühlen','Alles mit Eis 10 Sek. schütteln','Doppelt abseihen, Minzblatt auflegen']},
+ {n:'Tom Collins',c:'gin',p:'11,00',d:'Gin, Zitrone, Zucker & Soda',g:'highball',ice:'Eiswürfel',m:'Shaken + Toppen',i:[[5,'cl','Gin'],[2.5,'cl','Zitronensaft'],[2,'cl','Zuckersirup'],[null,'top','Soda']],gar:'Zitronenscheibe, Cocktailkirsche',s:['Gin, Zitrone, Sirup mit Eis kurz schütteln','Auf Eis ins Highball abseihen','Mit Soda auffüllen, kurz rühren']},
+
+ {n:'Daiquiri',c:'rum',p:'13,50',d:'weißer Rum, Limette & Zucker',g:'coupe',ice:'ohne',m:'Shaken',i:[[5,'cl','Weißer Rum'],[2.5,'cl','Limettensaft'],[1.5,'cl','Zuckersirup']],gar:'Limettenrad',s:['Glas vorkühlen','Alles mit Eis 10 Sek. hart schütteln','Doppelt abseihen']},
+ {n:'Margarita',c:'rum',p:'13,50',d:'Tequila, Triple Sec, Limette & Zucker',g:'coupe',ice:'ohne',m:'Shaken',i:[[5,'cl','Tequila'],[2,'cl','Triple Sec'],[2.5,'cl','Limettensaft'],[1,'cl','Zuckersirup']],gar:'Halber Salzrand, Limettenrad',s:['Halben Salzrand ans gekühlte Glas','Alles mit Eis 10 Sek. schütteln','Doppelt abseihen'],tip:'Mit Chili: 1–2 Chiliringe mitschütteln oder Chilisalz für den Rand.'},
+
+ {n:'Whiskey Sour',c:'sour',p:'13,50',d:'Maker’s Mark Bourbon',g:'tumbler',ice:'Eiswürfel',m:'Dry + Wet Shake',i:SOUR('Maker’s Mark'),gar:'Angostura-Tropfen, Orangenzeste',s:SOUR_S},
+ {n:'Monkey Sour',c:'sour',p:'13,50',d:'Monkey 47 Gin',g:'tumbler',ice:'Eiswürfel',m:'Dry + Wet Shake',i:SOUR('Monkey 47'),gar:'Angostura-Tropfen, Zitronenzeste',s:SOUR_S},
+ {n:'Amaretto Sour',c:'sour',p:'13,50',d:'Amaretto',g:'tumbler',ice:'Eiswürfel',m:'Dry + Wet Shake',i:SOUR('Amaretto',3,1),gar:'Angostura-Tropfen, Cocktailkirsche',s:SOUR_S,tip:'Weniger Zucker – Amaretto ist schon süß.'},
+ {n:'Pisco Sour',c:'sour',p:'13,50',d:'Pisco',g:'coupe',ice:'ohne',m:'Dry + Wet Shake',i:SOUR('Pisco'),gar:'Angostura-Tropfen',s:['Alles außer Angostura ohne Eis kräftig schütteln (Dry Shake)','Eis dazu, nochmal 10 Sek. hart schütteln','In die gekühlte Coupette abseihen','Angostura-Tropfen auf den Schaum']},
+ {n:'Aperol Sour',c:'sour',p:'13,50',d:'Aperol',g:'tumbler',ice:'Eiswürfel',m:'Dry + Wet Shake',i:SOUR('Aperol',2.5,1.5),gar:'Angostura-Tropfen, Orangenzeste',s:SOUR_S},
+ {n:'Averna Sour',c:'sour',p:'13,50',d:'Averna',g:'tumbler',ice:'Eiswürfel',m:'Dry + Wet Shake',i:SOUR('Averna',2.5,1.5),gar:'Angostura-Tropfen, Orangenzeste',s:SOUR_S},
+
+ {n:'Moscow Mule',c:'mule',p:'12,50',d:'Vodka & Limette, Fentimans Ginger Beer',g:'mug',ice:'Eiswürfel',m:'Gebaut',i:[[5,'cl','Vodka'],[1.5,'cl','Limettensaft'],[null,'top','Fentimans Ginger Beer']],gar:'Limettenspalte, Minzzweig',s:MULE_S},
+ {n:'Munich Mule',c:'mule',p:'12,50',d:'Gin & Limette, Fentimans Ginger Beer',g:'mug',ice:'Eiswürfel',m:'Gebaut',i:[[5,'cl','Gin'],[1.5,'cl','Limettensaft'],[null,'top','Fentimans Ginger Beer']],gar:'Gurkenscheibe, Limettenspalte',s:MULE_S},
+ {n:'Brazilian Mule',c:'mule',p:'12,50',d:'Cachaça, Limette & Passionsfrucht',g:'mug',ice:'Eiswürfel',m:'Gebaut',i:[[5,'cl','Cachaça'],[1.5,'cl','Limettensaft'],[2,'cl','Passionsfruchtpüree'],[null,'top','Fentimans Ginger Beer']],gar:'Halbe Passionsfrucht',s:MULE_S},
+ {n:'Mango Mule',c:'mule',p:'12,50',d:'Vodka, Mango & Limette',g:'mug',ice:'Eiswürfel',m:'Gebaut',i:[[5,'cl','Vodka'],[1.5,'cl','Limettensaft'],[3,'cl','Mangopüree'],[null,'top','Fentimans Ginger Beer']],gar:'Mangospalte, Minzzweig',s:MULE_S},
+
+ gt('Tanqueray','11,50','Limettenspalte'),
+ gt('Monkey 47 Dry / Sloe','12,50','Dry: Zitronenzeste · Sloe: Orangenscheibe'),
+ gt('Gin Mare','12,50','Rosmarinzweig, grüne Olive'),
+ gt('Hendrick’s','12,50','Gurkenscheiben'),
+ gt('Blue Gin','13,50','Zitronenzeste',1),
+ gt('Roku Gin','13,50','Dünne Ingwerscheiben'),
+ gt('The Botanist','14,50','Zitronenzeste, Thymianzweig',1),
+
+ {n:'Hausgemachte Limonade',c:'af',p:'4,90',d:'Ingwer, Limette, Gurke, Zitrone',g:'highball',ice:'Eiswürfel',m:'Gebaut',i:[[2,'cl','Ingwersirup'],[2,'cl','Limettensaft'],[2,'cl','Zitronensaft'],[3,'Scheiben','Gurke'],[null,'top','Soda']],gar:'Gurkenscheibe, Limettenrad',s:['Gurke ins Glas, Eis dazu','Sirup und Säfte dazu','Mit Soda auffüllen, rühren'],chk:1,note:'Hausrezept – falls vorbereitet (Batch), nur noch auf Eis mit Soda.'},
+ {n:'Nojito',c:'af',p:'6,50',d:'Limette, Minze, brauner Rohrzucker, Soda',g:'highball',ice:'Crushed Ice',m:'Muddeln + Gebaut',i:[[0.5,'Stk','Limette, geviertelt'],[2,'BL','Brauner Rohrzucker'],[10,'Blätter','Minze'],[null,'top','Soda']],gar:'Minzzweig',s:['Limette mit Zucker im Glas muddeln','Minze dazu, leicht andrücken','Crushed Ice, mit Soda auffüllen, von unten rühren']},
+ {n:'Ipanema',c:'af',p:'6,50',d:'Limette, brauner Rohrzucker, Ginger Ale',g:'highball',ice:'Crushed Ice',m:'Muddeln + Gebaut',i:[[0.5,'Stk','Limette, geviertelt'],[2,'BL','Brauner Rohrzucker'],[null,'top','Ginger Ale']],gar:'Limettenrad',s:['Limette mit Zucker im Glas muddeln','Crushed Ice dazu','Mit Ginger Ale auffüllen, rühren']},
+ {n:'Virgin Hugo',c:'af',p:'6,00',d:'Holundersirup, Minze, Soda',g:'wine',ice:'Eiswürfel',m:'Gebaut',i:[[2,'cl','Holunderblütensirup'],[6,'Blätter','Minze'],[null,'top','Soda']],gar:'Minzzweig, Limettenscheibe',s:['Minze im Glas leicht andrücken','Eis und Sirup dazu','Mit Soda auffüllen, rühren']},
+ {n:'Sanbitter Spritz',c:'af',p:'7,50',d:'Sanbitter',g:'wine',ice:'Eiswürfel',m:'Gebaut',i:[[10,'cl','Sanbitter (1 Flasche)'],[6,'cl','Soda']],gar:'Orangenscheibe',s:['Weinglas voll mit Eis','Sanbitter, dann Soda','Einmal rühren'],chk:1,note:'Karte nennt nur Sanbitter – Aufguss (Soda oder alkoholfreier Sekt) bestätigen.'},
+ {n:'Kinder Cocktail',c:'af',p:'5,50',d:'Mango-Maracuja-Saft, Sirup',g:'highball',ice:'Eiswürfel',m:'Gebaut',i:[[15,'cl','Mango-Maracuja-Saft'],[1,'cl','Sirup (z. B. Grenadine)']],gar:'Orangenscheibe, Kirsche, Strohhalm',s:['Highball mit Eis, Saft einfüllen','Sirup langsam hineingießen, sinkt nach unten'],chk:1,note:'Welcher Sirup? Auf der Karte nicht genannt.'},
+];
+D.forEach((d,ix)=>{d.id=ix;d.L=norm(d.n).trim()[0].toUpperCase()});
+function norm(s){return s.toLowerCase().replace(/ä/g,'a').replace(/ö/g,'o').replace(/ü/g,'u').replace(/ß/g,'ss').replace(/[^a-z0-9 ]/g,' ')}
+const SHORT={ape:'Aperitif',whi:'Whiskey',vod:'Vodka',gin:'Gin',rum:'Rum/Teq.',sour:'Sours',mule:'Mules',gt:'G&T',af:'Ohne Alk.'};
+const $=id=>document.getElementById(id);
+const store={get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+let mode=store.get('bb_mode','az'), filt=null, sel=null, mult=1, recent=store.get('bb_recent',[]);
+const LETTERS=[...new Set(D.map(d=>d.L))].sort();
+const AZ=[...D].sort((a,b)=>a.n.localeCompare(b.n,'de'));
+
+function renderStrip(){
+  const items=mode==='az'?LETTERS.map(l=>[l,l]):CATS.map(([k])=>[k,SHORT[k]]);
+  $('strip').innerHTML=
+    `<button class="mode" data-mode="1">${mode==='az'?'A–Z ⇄ Karte':'Karte ⇄ A–Z'}</button>`+
+    `<button class="rec" data-f="rec" aria-pressed="${filt==='rec'}">Zuletzt</button>`+
+    items.map(([k,l])=>`<button data-f="${k}" aria-pressed="${filt===k}">${l}</button>`).join('');
+}
+function list(){
+  if(filt==='rec')return recent.map(i=>D[i]).filter(Boolean);
+  if(mode==='az')return AZ.filter(d=>!filt||d.L===filt);
+  return D.filter(d=>!filt||d.c===filt);
+}
+function tile(d){return `<button class="tile" data-id="${d.id}" aria-pressed="${sel===d.id}">${d.n}${d.chk?'<span class="dot" title="Spec prüfen"></span>':''}</button>`}
+function renderTiles(){
+  const r=list();
+  let h='';
+  if(!r.length)h=`<div class="gh">Noch nichts geöffnet</div>`;
+  else if(mode==='karte'&&!filt){
+    CATS.forEach(([k,l])=>{h+=`<div class="gh">${l}</div>`+r.filter(d=>d.c===k).map(tile).join('')});
+  } else if(mode==='az'&&!filt){
+    LETTERS.forEach(L=>{h+=`<div class="gh">${L}</div>`+r.filter(d=>d.L===L).map(tile).join('')});
+  } else h=r.map(tile).join('');
+  $('tiles').innerHTML=h;
+}
+const fmt=n=>(Math.round(n*100)/100).toString().replace('.',',');
+function renderPane(){
+  const p=$('pane');
+  if(sel==null){p.innerHTML=`<div class="hint">Buchstabe oder Rubrik oben antippen,<br>dann den Drink.</div>`;return}
+  const d=D[sel];
+  p.innerHTML=`
+   <div class="ph"><h2>${d.n}</h2><span>€ ${d.p}</span></div>
+   <div class="top">${svg(d.g)}<div class="facts">
+     <div><i>Glas</i><b>${GLASS[d.g][0]}</b></div>
+     <div><i>Eis</i><b>${d.ice}</b></div>
+     <div><i>Technik</i><b>${d.m}</b></div>
+   </div></div>
+   <div class="gar"><small>Garnitur</small>${d.gar}</div>
+   <div class="ih"><span class="lbl">Zutaten</span><div class="scale">${[1,2,4].map(m=>`<button data-m="${m}" aria-pressed="${mult===m}">×${m}</button>`).join('')}</div></div>
+   <table>${d.i.map(([a,u,n])=>`<tr><td class="a">${a==null?'<small style="margin:0">auffüllen</small>':fmt(a*mult)+'<small>'+u+'</small>'}</td><td>${n}</td></tr>`).join('')}</table>
+   <div class="ih"><span class="lbl">Zubereitung</span></div>
+   <ol>${d.s.map(s=>`<li>${s}</li>`).join('')}</ol>
+   ${d.note?`<div class="note">⚠ ${d.note}</div>`:''}
+   ${d.tip?`<div class="tip">${d.tip}</div>`:''}
+   <button class="close" id="close">Zurück</button>`;
+  p.scrollTop=0;
+}
+let wake=null;
+function pick(id){
+  sel=id;mult=1;
+  recent=[id,...recent.filter(x=>x!==id)].slice(0,8);store.set('bb_recent',recent);
+  renderTiles();renderPane();$('pane').classList.add('open');
+  try{if(!wake&&navigator.wakeLock)navigator.wakeLock.request('screen').then(w=>wake=w).catch(()=>{})}catch(e){}
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.mode){mode=mode==='az'?'karte':'az';filt=null;store.set('bb_mode',mode);renderStrip();renderTiles();$('tiles').scrollTop=0;return}
+  if(t.dataset.f){filt=filt===t.dataset.f?null:t.dataset.f;renderStrip();renderTiles();$('tiles').scrollTop=0;
+    const r=list();if(r.length===1)pick(r[0].id);return}
+  if(t.dataset.id){pick(+t.dataset.id);return}
+  if(t.dataset.m){mult=+t.dataset.m;const st=$('pane').scrollTop;renderPane();$('pane').scrollTop=st;return}
+  if(t.id==='close'){$('pane').classList.remove('open')}
+});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')wake=null});
+renderStrip();renderTiles();renderPane();
+</script>
+
+</body>
+</html>
