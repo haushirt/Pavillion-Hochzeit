@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wann hast du Zeit?</title>
+<meta name="description" content="Tipp an, wann du Zeit hast, und schick es Casimir.">
+<meta property="og:title" content="Wann hast du Zeit?">
+<meta property="og:description" content="Tipp an, wann du Zeit hast, und schick es Casimir.">
+<style>
+  :root{
+    --bg:#f7f3ec; --surface:#fff; --surface-2:#efe8dc; --ink:#1f2a33; --muted:#66727b;
+    --accent:#2f7d4f; --accent-ink:#fff; --accent-soft:#d8eedf; --line:#e4dccd;
+    --past:#c9c2b6; --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 18px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#111619; --surface:#1a2126; --surface-2:#232c33; --ink:#ebe6dc; --muted:#9aa7af;
+      --accent:#6cc78f; --accent-ink:#0d1a12; --accent-soft:#1f3a2a; --line:#2c363d; --past:#3a444b;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#111619; --surface:#1a2126; --surface-2:#232c33; --ink:#ebe6dc; --muted:#9aa7af;
+    --accent:#6cc78f; --accent-ink:#0d1a12; --accent-soft:#1f3a2a; --line:#2c363d; --past:#3a444b;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+    padding:max(16px,env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom))}
+  main{max-width:520px;margin:0 auto}
+  h1{font-size:28px;line-height:1.15;margin:8px 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--muted);margin:0 0 20px}
+  .card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+  label.lbl{display:block;font-weight:600;font-size:14px;margin-bottom:8px}
+  input[type=text],textarea{width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--surface-2);border:1px solid transparent;border-radius:10px;padding:11px 12px;outline:none}
+  input[type=text]:focus,textarea:focus{border-color:var(--accent)}
+  textarea{min-height:64px;resize:vertical}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px}
+  .chip[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .month h2{font-size:17px;margin:4px 0 10px}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .wd{font-size:12px;color:var(--muted);text-align:center;padding-bottom:2px}
+  .day{aspect-ratio:1;border:0;border-radius:10px;font:inherit;font-size:16px;background:var(--surface-2);color:var(--ink);cursor:pointer;min-height:40px;padding:0}
+  .day.we{font-weight:600}
+  .day[disabled]{background:transparent;color:var(--past);cursor:default}
+  .day[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+  .hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .bar-in{max-width:520px;margin:0 auto;display:flex;gap:10px;align-items:center}
+  .count{font-size:14px;color:var(--muted);min-width:70px}
+  .send{flex:1;font:inherit;font-weight:700;font-size:17px;border:0;border-radius:14px;padding:14px;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+  .send[disabled]{opacity:.45;cursor:default}
+  .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
+  .toast.on{opacity:1}
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">Wann hast du Zeit?</h1>
+  <p class="sub" id="sub">Tipp die Tage an, an denen du kannst, und schick sie mir. Casimir</p>
+
+  <div class="card" id="forCard">
+    <label class="lbl">Wofür?</label>
+    <div class="chips" id="forChips"></div>
+  </div>
+
+  <div class="card">
+    <label class="lbl" for="name">Dein Name</label>
+    <input type="text" id="name" autocomplete="name" placeholder="z. B. Lena">
+  </div>
+
+  <div class="card">
+    <label class="lbl">Tageszeit</label>
+    <div class="chips" id="timeChips"></div>
+  </div>
+
+  <div id="months"></div>
+
+  <div class="card">
+    <label class="lbl" for="note">Noch was? (optional)</label>
+    <textarea id="note" placeholder="z. B. Wochenenden am besten"></textarea>
+  </div>
+</main>
+
+<div class="bar"><div class="bar-in">
+  <span class="count" id="count">0 Tage</span>
+  <button class="send" id="send" disabled>An Casimir schicken</button>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var OCC = {kaffee:"Kaffee", geburtstag:"Geburtstag nachfeiern", party:"Party"};
+  var TIMES = ["Egal","Vormittag","Nachmittag","Abend"];
+  var WD = ["Mo","Di","Mi","Do","Fr","Sa","So"];
+  var WDL = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+  var MN = ["Jänner","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+  var q = new URLSearchParams(location.search);
+  var preset = (q.get("fuer")||"").toLowerCase();
+  var monthsN = Math.min(Math.max(parseInt(q.get("monate"),10)||3,1),12);
+  var state = {occ: OCC[preset]||"", time:"Egal", days:{}};
+
+  function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
+  function chipRow(box,items,get,set){
+    box.innerHTML="";
+    items.forEach(function(v){
+      var b=el("button","chip",v);b.type="button";
+      b.setAttribute("aria-pressed",get()===v);
+      b.onclick=function(){set(get()===v&&box.id==="forChips"?"":v);chipRow(box,items,get,set)};
+      box.appendChild(b);
+    });
+  }
+
+  // Titel
+  if(state.occ){
+    document.getElementById("title").textContent = "Wann hast du Zeit für "+(state.occ==="Kaffee"?"einen Kaffee":state.occ==="Party"?"eine Party":"meine Geburtstags-Nachfeier")+"?";
+    document.getElementById("forCard").style.display="none";
+  } else {
+    chipRow(document.getElementById("forChips"),["Kaffee","Geburtstag nachfeiern","Party"],function(){return state.occ},function(v){state.occ=v});
+  }
+  chipRow(document.getElementById("timeChips"),TIMES,function(){return state.time},function(v){state.time=v||"Egal"});
+
+  // Kalender
+  var today=new Date();today.setHours(0,0,0,0);
+  var box=document.getElementById("months");
+  for(var m=0;m<monthsN;m++){
+    var first=new Date(today.getFullYear(),today.getMonth()+m,1);
+    var card=el("div","card month");
+    card.appendChild(el("h2",null,MN[first.getMonth()]+" "+first.getFullYear()));
+    var g=el("div","grid");
+    WD.forEach(function(w){g.appendChild(el("div","wd",w))});
+    var off=(first.getDay()+6)%7;
+    for(var i=0;i<off;i++)g.appendChild(el("div"));
+    var dim=new Date(first.getFullYear(),first.getMonth()+1,0).getDate();
+    for(var d=1;d<=dim;d++){
+      var dt=new Date(first.getFullYear(),first.getMonth(),d);
+      var b=el("button","day",String(d));b.type="button";
+      var dow=dt.getDay(); if(dow===0||dow===6)b.classList.add("we");
+      if(dt<today){b.disabled=true}else{
+        var key=dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+        b.dataset.key=key;b.setAttribute("aria-pressed","false");
+        b.setAttribute("aria-label",WDL[dow]+" "+d+". "+MN[dt.getMonth()]);
+        b.onclick=function(){var k=this.dataset.key;
+          if(state.days[k])delete state.days[k];else state.days[k]=1;
+          this.setAttribute("aria-pressed",!!state.days[k]);upd()};
+      }
+      g.appendChild(b);
+    }
+    card.appendChild(g);
+    if(m===0)card.appendChild(el("p","hint",null)).textContent="Antippen = Zeit. Nochmal antippen = doch nicht.";
+    box.appendChild(card);
+  }
+
+  var sendBtn=document.getElementById("send");
+  function upd(){var n=Object.keys(state.days).length;
+    document.getElementById("count").textContent=n+(n===1?" Tag":" Tage");sendBtn.disabled=n===0}
+
+  function fmt(k){var p=k.split("-");var dt=new Date(+p[0],+p[1]-1,+p[2]);return WDL[dt.getDay()]+" "+(+p[2])+"."+(+p[1])+"."}
+  function buildText(){
+    var name=document.getElementById("name").value.trim()||"Ich";
+    var keys=Object.keys(state.days).sort();
+    var t="Hallo Casimir! "+name+" hier.\n";
+    t+=state.occ?("Für "+(state.occ==="Geburtstag nachfeiern"?"deine Geburtstags-Nachfeier":state.occ)+" habe ich Zeit am:\n"):"Ich habe Zeit am:\n";
+    t+=keys.map(fmt).join(", ")+"\n";
+    if(state.time!=="Egal")t+="Am besten: "+state.time+"\n";
+    var note=document.getElementById("note").value.trim(); if(note)t+=note+"\n";
+    return t.trim();
+  }
+  function toast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("on");setTimeout(function(){t.classList.remove("on")},2600)}
+  function copy(text){
+    if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(text)}
+    var ta=el("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(e){}ta.remove();return Promise.resolve();
+  }
+  sendBtn.onclick=function(){
+    if(!document.getElementById("name").value.trim()){toast("Bitte deinen Namen eintragen");document.getElementById("name").focus();return}
+    var text=buildText();
+    if(navigator.share){
+      navigator.share({text:text}).catch(function(e){if(e&&e.name!=="AbortError"){copy(text).then(function(){toast("Text kopiert. Einfach an Casimir schicken.")})}});
+    } else {
+      copy(text).then(function(){toast("Text kopiert. Einfach an Casimir schicken.")});
+    }
+  };
+})();
+</script>
+</body>
+</html>
