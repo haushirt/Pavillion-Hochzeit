@@ -55,10 +55,29 @@
   .send[disabled]{opacity:.45;cursor:default}
   .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
   .toast.on{opacity:1}
+  .ev{display:none}
+  body.event .ev{display:block}
+  body.event .poll{display:none}
+  .ev .when{font-size:20px;font-weight:700;margin:0 0 4px}
+  .ev .where{color:var(--muted);margin:0}
+  .btn{display:block;width:100%;text-align:center;text-decoration:none;font:inherit;font-weight:700;font-size:17px;border:0;border-radius:14px;padding:14px;background:var(--accent);color:var(--accent-ink);cursor:pointer;margin-top:10px}
+  .btn.sec{background:var(--surface-2);color:var(--ink)}
 </style>
 </head>
 <body>
 <main>
+  <section class="ev" id="ev">
+    <h1 id="evTitle">Es steht fest!</h1>
+    <p class="sub">Trag es dir mit einem Tipp in den Kalender ein, inklusive Erinnerung. Casimir</p>
+    <div class="card">
+      <p class="when" id="evWhen"></p>
+      <p class="where" id="evWhere"></p>
+      <button class="btn" id="evIcs" type="button">📅 In Kalender eintragen</button>
+      <a class="btn sec" id="evGoogle" target="_blank" rel="noopener">Google Kalender</a>
+      <p class="hint">Erinnerung: 1 Tag und 2 Stunden vorher.</p>
+    </div>
+  </section>
+  <div class="poll">
   <h1 id="title">Hey, wann hast du Zeit?</h1>
   <p class="sub" id="sub">Auf einen Kaffee, oder weil ich eine Geburtstagsfeier oder Party plane. Tipp an, wann du kannst, und schick es mir. Casimir</p>
 
@@ -83,9 +102,10 @@
     <label class="lbl" for="note">Noch was? (optional)</label>
     <textarea id="note" placeholder="z. B. Wochenenden am besten"></textarea>
   </div>
+</div>
 </main>
 
-<div class="bar"><div class="bar-in">
+<div class="bar poll"><div class="bar-in">
   <span class="count" id="count">0 Tage</span>
   <button class="send" id="send" disabled>An Casimir schicken</button>
 </div></div>
@@ -112,6 +132,58 @@
       b.onclick=function(){set(get()===v&&box.id==="forChips"?"":v);chipRow(box,items,get,set)};
       box.appendChild(b);
     });
+  }
+
+  // Termin-Modus: ?termin=2026-12-05T19:00&dauer=3&fuer=party&ort=...
+  var termin=q.get("termin");
+  if(termin&&/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$/.test(termin)){
+    document.body.classList.add("event");
+    var allDay=termin.length===10;
+    var tp=termin.split(/[-T:]/).map(Number);
+    var start=new Date(tp[0],tp[1]-1,tp[2],allDay?0:tp[3],allDay?0:tp[4]);
+    var hrs=parseFloat(q.get("dauer"))||3;
+    var end=allDay?new Date(tp[0],tp[1]-1,tp[2]+1):new Date(start.getTime()+hrs*3600000);
+    var ort=q.get("ort")||"";
+    var label=state.occ==="Kaffee"?"Kaffee mit Casimir":state.occ==="Party"?"Party bei Casimir":state.occ?"Casimirs Geburtstagsfeier":"Treffen mit Casimir";
+    var evName=q.get("titel")||label;
+    document.title=evName;
+    document.getElementById("evTitle").textContent=evName;
+    var MNs=MN;
+    document.getElementById("evWhen").textContent=WDL[start.getDay()]+", "+start.getDate()+". "+MNs[start.getMonth()]+" "+start.getFullYear()+(allDay?"":", "+String(start.getHours()).padStart(2,"0")+":"+String(start.getMinutes()).padStart(2,"0")+" Uhr");
+    document.getElementById("evWhere").textContent=ort?("📍 "+ort):"";
+    function p2(n){return String(n).padStart(2,"0")}
+    function loc(d){return d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate())+(allDay?"":"T"+p2(d.getHours())+p2(d.getMinutes())+"00")}
+    function utc(d){return d.getUTCFullYear()+p2(d.getUTCMonth()+1)+p2(d.getUTCDate())+"T"+p2(d.getUTCHours())+p2(d.getUTCMinutes())+"00Z"}
+    function esc(t){return t.replace(/[\\;,]/g,function(c){return "\\"+c}).replace(/\n/g,"\\n")}
+    var uid="casimir-"+termin.replace(/\W/g,"")+"@haushirt.github.io";
+    var ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Casimir//Zeit//DE","CALSCALE:GREGORIAN","METHOD:PUBLISH","BEGIN:VEVENT",
+      "UID:"+uid,"DTSTAMP:"+utc(new Date()),
+      allDay?"DTSTART;VALUE=DATE:"+loc(start):"DTSTART;TZID=Europe/Vienna:"+loc(start),
+      allDay?"DTEND;VALUE=DATE:"+loc(end):"DTEND;TZID=Europe/Vienna:"+loc(end),
+      "SUMMARY:"+esc(evName)].concat(ort?["LOCATION:"+esc(ort)]:[]).concat([
+      "BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+esc(evName),"TRIGGER:-P1D","END:VALARM",
+      "BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+esc(evName),"TRIGGER:-PT2H","END:VALARM",
+      "END:VEVENT","END:VCALENDAR"]).join("\r\n");
+    document.getElementById("evIcs").onclick=function(){
+      var blob=new Blob([ics],{type:"text/calendar;charset=utf-8"});
+      var url=URL.createObjectURL(blob);
+      if(/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)){location.href=url;return}
+      var a=document.createElement("a");a.href=url;a.download="termin.ics";
+      document.body.appendChild(a);a.click();a.remove();
+    };
+    var gd=allDay?loc(start)+"/"+loc(end):utc(start)+"/"+utc(end);
+    document.getElementById("evGoogle").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(evName)+"&dates="+gd+(ort?"&location="+encodeURIComponent(ort):"");
+    return;
+  }
+
+  // Steht ein Termin in termin.json, sehen alle mit dem alten Link automatisch den Termin
+  if(!termin&&!q.get("umfrage")&&window.fetch){
+    fetch("termin.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){
+      if(!j||!j.termin)return;
+      var np=new URLSearchParams();
+      ["termin","dauer","fuer","ort","titel"].forEach(function(k){if(j[k])np.set(k,j[k])});
+      location.replace(location.pathname+"?"+np.toString());
+    }).catch(function(){});
   }
 
   // Titel
