@@ -1,8 +1,13 @@
 BEGIN:VCARD
 VERSION:3.0
-N:Ikrath;Casimir;;;
-FN:Casimir Ikrath
+N:;;;;
+FN:Haus Hirt
 ORG:Haus Hirt – Alpine Spa Hotel
+X-ABShowAs:COMPANY
 EMAIL;TYPE=INTERNET,PREF:casimir.ikrath@haus-hirt.com
 EMAIL;TYPE=INTERNET:team@haus-hirt.com
+URL;TYPE=Instagram:https://www.instagram.com/haushirt/
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/haushirt/
+ADR;TYPE=WORK:;;;Bad Gastein;;;Österreich
+NOTE:Ansprechpartner: Casimir Ikrath
 END:VCARD
