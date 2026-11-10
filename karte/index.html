@@ -1,6 +1,13 @@
 <!doctype html><html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3b1b0b">
+<meta property="og:title" content="Lust auf Berge? · Haus Hirt">
+<meta property="og:description" content="Haus Hirt, Bad Gastein · Karte öffnen, Kontakt speichern, @haushirt">
+<meta property="og:image" content="https://haushirt.github.io/karte/og-allgemein.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://haushirt.github.io/karte/"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="/karte/icon.png"><link rel="icon" href="/karte/icon.png">
 <title>Haus Hirt · Lust auf Berge?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;1,400;1,600&family=Overpass:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -68,7 +75,7 @@ h1 span{color:#df4b6a}
   <p class="text" id="text">Morgens Pulver, abends Service mit einem Team, das zusammenhält. Kleines Haus, große Berge, <b>Bad Gastein</b>. Wenn dich das reizt, schreib uns.</p>
   <p class="person">Ansprechpartner: <b>Casimir Ikrath</b></p>
   <div class="knoepfe">
-   <a class="knopf haupt" id="speichern" href="haus-hirt.vcf" download="Haus Hirt.vcf">
+   <a class="knopf haupt" id="speichern" href="/karte/haus-hirt.vcf" download="Haus Hirt.vcf">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
     <span>Kontakt speichern</span></a>
    <a class="knopf neben" id="mail1" href="mailto:casimir.ikrath@haus-hirt.com">
@@ -87,7 +94,7 @@ h1 span{color:#df4b6a}
 </main>
 <script>
 const NAMEN={oscar:'Oscar',ben:'Ben'};
-const k=(new URLSearchParams(location.search).get('f')||location.hash.slice(1)||'').toLowerCase();
+const k=(window.FUER||new URLSearchParams(location.search).get('f')||location.hash.slice(1)||'').toLowerCase();
 const n=NAMEN[k];
 if(n){document.getElementById('gruss').textContent='Servus '+n+',';
  document.getElementById('mail1').href='mailto:casimir.ikrath@haus-hirt.com?subject='+encodeURIComponent('Lust auf Berge');
